@@ -1,0 +1,91 @@
+<?php 
+
+//////// GET IDENTITY
+$auth = Zend_Auth::getInstance();
+if($hasIdentity = $auth->hasIdentity()) {
+$user = $auth->getIdentity();}
+	?>
+
+<div id="container" class="margin15leftright">
+	<div id="msgErrSpot"></div>
+  <form id="addSpot" enctype="application/x-www-form-urlencoded" method="post" class="form-horizontal aligncenter" onsubmit="submitFormAddSpot(); return false;"> <!-- action="/spot/addFromEvent" -->
+
+  	<input type="hidden" name="id" value="<?php if(isset($this->dataPopulate['id'])) echo $this->dataPopulate['id']; ?>" id="id" />
+  	
+  	  <div class="form-group">
+        <div class="col-sm-12">
+		<div class="labelMiniAdd">Nom</div>
+    	    <input type="text" class="form-control nameSpot" id="nameSpot" name="nameSpot" placeholder="Hapta Club" required pattern="^[a-zA-Z0-9 _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ&-']*$" onchange="upperCaseNomEvent(this.value)" />
+          <span class="form_hint">Certains charactères spéciaux ne sont pas acceptés.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+		<div class="labelMiniAdd">Ville</div>
+          <input type="text" class="form-control city" id="city" name="city" placeholder="Lyon 1" required pattern="^[a-zA-Z0-9 _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ&-']*$" onchange="upperCaseCity(this.value)" />
+          <span class="form_hint">Certains charactères spéciaux ne sont pas acceptés.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-12">
+		<div class="labelMiniAdd">Adresse</div>
+          <input type="text" class="form-control address" id="address" name="address" placeholder="3 place de la Hapta" onchange="upperCaseAdress(this.value)" />
+        </div>
+      </div>
+
+  	  <div class="alignright">
+        <button class="btn btn-primary " onclick="trackOutboundLink('<?php echo Zend_Registry::get('City_Location'); ?> - <? echo $user->username ; ?> - Add From Event Spot Action');" type="submit">Envoyer</button>
+      </div>
+
+  </form>
+</div>
+
+<script type="text/javascript">
+function initSpotsInput(){
+    var parentNode = $('#idsSpot').parent();
+    parentNode.html("");
+    parentNode.html('<input id="idsSpot" style="width:710px" >');
+}
+
+function submitFormAddSpot(){
+
+  var nom  = document.getElementById('nameSpot').value;
+  var city = document.getElementById('city').value;
+  var checkValidAddSpotName = document.getElementById('nameSpot').validity.valid;
+  var checkValidAddSpotCity = document.getElementById('city').validity.valid;
+
+  if(nom == "" && city == "" && checkValidAddSpotName == false && checkValidAddSpotCity == false) {
+    $("#city").addClass('sendInvalid');
+    $("#nameSpot").addClass('sendInvalid');
+    return false;
+  }
+  if(nom != "" && city != "" && checkValidAddSpotName == false && checkValidAddSpotCity == false) {
+    $("#city").addClass('sendInvalid');
+    $("#nameSpot").addClass('sendInvalid');
+    return false;
+  }
+  
+	var name = $('#nameSpot').val();
+	var city = $('#city').val();
+	var address = $('#address').val();
+
+	$.ajax({
+		type: 'POST',
+		url: '/spot/addFromEvent',
+		data: { name: name, city: city, address: address},
+		success: function(data){
+			if(data == 'INSERTION->Erreur'){
+				$('#msgErrSpot').html('<div class="alert alert-danger">Un spot du même nom existe déjà dans la base.</div>');
+			} else {
+				var spotToAdd = {};
+				var spots = [];
+				spotToAdd.name = data;
+				spots.push(spotToAdd);
+				$('#modalSpot').modal('hide');
+				initSpotsInput();
+				initSpotField(spots);
+			}
+		}
+	});
+}
+</script>

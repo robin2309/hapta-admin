@@ -1,0 +1,13 @@
+<?php
+$this->title ="Effacer Event";
+$this->headTitle($this->title);
+?>
+<form action ="<?php echo $this->url(array('controller'=>'event','action'=>'deleteAdmin'), null, true); ?>" method = "post" class="form-inline aligncenter">
+	<div>
+	<h2>Effacer '<?php echo $this->escape($this->event['name']); ?>' ? </h2>
+		<input type="hidden" name="id" value="<?php echo $this->event['id']; ?>" />
+		<input type="submit" name="del" value="Oui" />
+		<input type="submit" name="del" value="Non"/>
+	</div>
+	<br/>
+</form>

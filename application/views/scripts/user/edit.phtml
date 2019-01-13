@@ -1,0 +1,56 @@
+<div id="container">
+
+<form id="AjoutUser" enctype="application/x-www-form-urlencoded" method="post" action="/user/edit" class="form-horizontal" >
+
+		<input type="hidden" name="id" value="<?php if(isset($this->dataPopulate['id'])) echo $this->dataPopulate['id']; ?>" id="id" />
+	
+
+		 <div class="form-group">
+			<label for="username" class="col-sm-4 control-label" class="required" >Nom</label>
+			<div class="col-sm-8 ">
+			  <input type="text" class="form-control width150 floatleft" id="username" name="username"  placeholder="Nom de l'utilisateur" value="<?php if(isset($this->dataPopulate['username'])) echo $this->dataPopulate['username']; ?>"/>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="password" class="col-sm-4 control-label" class="required" >Mot de passe</label>
+			<div class="col-sm-8 ">
+			  <input type="password" class="form-control width150 floatleft" id="password" name="password"  placeholder="Mot de passe" value="" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="password2" class="col-sm-4 control-label" class="required" >Confirmer mot de passe</label>
+			<div class="col-sm-8 ">
+			  <input type="password" class="form-control width150 floatleft" id="password2" name="password2"  placeholder="Mot de passe" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="email" class="col-sm-4 control-label" class="required" >Email</label>
+			<div class="col-sm-8 ">
+			  <input type="text" class="form-control width150 floatleft" id="email" name="email"  placeholder="Email" value="<?php if(isset($this->dataPopulate['email'])) echo $this->dataPopulate['email']; ?>" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="admin" class="col-sm-4 control-label" class="required" >Admin</label>
+			<div class="col-sm-8 ">
+			  <input type="checkbox" class="width150 floatleft" id="admin" name="admin" <?php if(isset($this->dataPopulate['role'])): if($this->dataPopulate['role'] == "admin") echo "checked";  endif;?>/>
+			</div>
+		</div>
+	
+		 
+		 <div class="aligncenter" >
+			<input type="submit" name="submit" id="submitbutton" value="Modifier"  class="btn btn-primary"  />
+		</div>
+	
+
+	</div>
+
+</form>
+</div>
+
+<script>
+
+</script>

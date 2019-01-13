@@ -1,0 +1,16 @@
+
+<?php
+$this->title ="Effacer Genre";
+$this->headTitle($this->title);
+?>
+<form action ="<?php echo $this->url(array('action'=>'deleteAdmin')); ?>" method = "post" class="form-inline aligncenter">
+	<div>
+	<h2>Effacer le jeu de : '<?php echo $this->escape($this->concours['name']); ?>' ? </h2>
+		<input type="hidden" name="id" value="<?php echo $this->concours['id']; ?>" />
+		<input type="submit" name="del" value="Oui" />
+		<input type="submit" name="del" value="Non"/>
+	</div>
+	<br/>
+</form>
+
+

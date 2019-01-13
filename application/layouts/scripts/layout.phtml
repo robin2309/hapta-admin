@@ -1,0 +1,152 @@
+<!-- application/layouts/scripts/layout.phtml -->
+<?php echo $this->doctype() ?>
+
+<html lang="fr">
+  	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8;" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Hapta <?php echo Zend_Registry::get('City_Location'); ?> - Administration</title>
+		
+		<link rel="icon" href="/img/favicon6.png" />
+		<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
+		<?
+		
+		$request = Zend_Controller_Front::getInstance()->getRequest();
+		$controller = $request->getControllerName();
+		$action = $request->getActionName();
+		
+		$this->headLink()->appendStylesheet('/css/bootstrap.css');
+		$this->headLink()->appendStylesheet('/css/font-awesome/css/font-awesome.min.css');
+		$this->headLink()->appendStylesheet('/css/style.css');
+		
+		$this->headScript()->appendFile('/js/jquery-1.11.2.min.js');
+		$this->headScript()->appendFile('/js/bootstrap.js');
+		$this->headScript()->appendFile('/js/validateFormAdmin.js');
+		
+		if($controller == 'event' || $controller == 'concours'){
+			$this->headLink()->appendStylesheet('/css/bootstrap-datetimepicker.min.css');
+			
+			$this->headScript()->appendFile('/js/datepicker/moment.min.js');
+			$this->headScript()->appendFile('/js/datepicker/bootstrap-transition.js');
+			$this->headScript()->appendFile('/js/datepicker/bootstrap-collapse.js');
+			$this->headScript()->appendFile('/js/datepicker/bootstrap-datetimepicker.js');
+			// si formulaire ajout ou modif d'event
+			if($action == 'add' || $action == 'edit' || $action = 'addAdmin' || $action = 'editAdmin'){
+				$this->headLink()->appendStylesheet('/css/textext/textext.core.css');
+				$this->headLink()->appendStylesheet('/css/textext/textext.plugin.arrow.css');
+				$this->headLink()->appendStylesheet('/css/textext/textext.plugin.autocomplete.css');
+				$this->headLink()->appendStylesheet('/css/textext/textext.plugin.focus.css');
+				$this->headLink()->appendStylesheet('/css/textext/textext.plugin.prompt.css');
+				$this->headLink()->appendStylesheet('/css/textext/textext.plugin.tags.css');
+				$this->headLink()->appendStylesheet('/css/textext/textext.plugin.clear.css');
+				
+				
+				$this->headScript()->appendFile('/js/textext/textext.core.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.ajax.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.arrow.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.autocomplete.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.focus.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.prompt.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.tags.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.clear.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.filter.js');
+				$this->headScript()->appendFile('/js/textext/textext.plugin.suggestions.js');
+			}
+		} /*elseif($controller == 'genre'){
+			if($action == 'index'){
+				$this->headScript()->appendFile('/js/list.js');
+			}
+		}*/
+
+		echo $this->headLink();
+		
+		echo $this->headScript();
+		?>
+		<?// CSS SPECIFIQUES A UNE VUE
+			//= $this->cssHelper() 
+		?>
+		<? // echo $this->headScript()->appendFile('/js/jquery-1.9.1.min.js') ?>
+		<? // echo $this->headScript()->appendFile('/js/datepicker.js') ?>
+		<? //$this->javascriptHelper() ?>
+		<? //= $this->headScript() ?>
+		
+  	</head>
+
+  	<body>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', '<?php echo Zend_Registry::get('Analytics_Id'); ?>', 'auto');
+	  ga('send', 'pageview');
+	  
+	  
+	  var trackOutboundLink = function(name) {
+   ga('send', 'event', 'outbound', 'click', name, {'hitCallback':
+     function () {
+	//console.log(name);
+     }
+   });
+}
+
+	</script>
+	
+	<?php 
+	
+	//////// GET IDENTITY
+	$auth = Zend_Auth::getInstance();
+	if($hasIdentity = $auth->hasIdentity()) {
+		$user = $auth->getIdentity();
+		if($user->role == 'admin'){
+			require_once('navbarAdmin.php');
+		} elseif($user->role == 'user'){
+			require_once('navbarUser.php');
+		}
+		
+	?>
+
+	<div class="row ">
+	<div class="col-md-2 ">
+	
+	</div>
+		<div class="col-md-8">
+	
+		<?PHP echo $this->layout()->content; ?>
+	
+		</div>
+		
+		<div class="col-md-2 sidebar">
+	
+	</div>
+	</div>
+	
+	<? }else { ?> 
+		<div class="row paddingtop10"> 
+			<? echo $this->layout()->content; ?> 
+		</div> 
+	<? } ?>
+
+</body>
+
+
+	<script>$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5622a3decf8e329663a35349/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->

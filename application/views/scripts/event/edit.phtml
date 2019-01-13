@@ -1,0 +1,1040 @@
+<h1 style="text-align:left;     padding-left: 18%;
+    padding-bottom: 1%;">Modifier l'Event</h1>
+
+<div id="msgErrAddEvent" class="errorDiv alert alert-danger" role="alert" >
+<?php if(isset($this->dataPopulate['errEmptyField'])): ?>
+	Erreur lors de l'ajout de l'event, renseignez tous les champs obligatoires !
+<?php elseif(isset($this->dataPopulate['errInsert'])): ?>
+	Erreur : <?php echo $this->dataPopulate['errInsert']['type'] . " '" . $this->dataPopulate['errInsert']['name']."'" ?> n'existe pas.
+<?php elseif(isset($this->dataPopulate['existingLinkFb'])): ?>
+	Erreur lors de l'ajout de l'event, le lien Facebook existe déjà dans la base !
+<?php endif; ?>
+</div>
+
+
+
+
+<div class="tempStatBox2"  id="num1" style="margin-top:3%;" data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 1</b> Copiez coller votre <b>lien</b> facebook</div>">
+				<div class="tempStat2" >1</div>
+			</div>
+<div class="tempStatBox2"  id="num2" style="right: 10%;margin-top:3%;" data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 2 :</b> Cliquez sur l'éclair pour pré-remplir les différents champs depuis votre event Facebook.</div>">
+				<div class="tempStat2" >2</div>
+			</div>
+			
+			<div class="tempStatBox2"  id="num3" style="margin-top:12.5%;" data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 3 :</b> Merci de supprimer le nom des artistes ou du lieu</div>">
+				<div class="tempStat2" >3</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:20.5%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 4 :</b> Vous pouvez donner accès à un organisateur via ce champ. </div>">
+				<div class="tempStat2" >4</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:27.5%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 5 :</b> Tapez les premières lettres d'un spot pour le trouver dans notre base de donnée. Si il n'y est pas, veuillez l'ajouter via le <b>bouton +</b> </div>">
+				<div class="tempStat2" >5</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:34%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 6 :</b> Tapez les premières lettres d'un artiste pour le trouver dans notre base de donnée. Si il n'y est pas, veuillez l'ajouter via le <b>bouton +</b> </div>">
+				<div class="tempStat2" >6</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:40.5%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 7 :</b> Tapez les premieres lettres d'un genre pour le trouver dans notre base de donnée. Si il n'y est pas, veuillez l'ajouter via le <b>bouton +</b></div>">
+				<div class="tempStat2" >7</div>
+			</div>
+			
+			
+			
+			
+			<!--<div class="tempStatBox2" id="num4" style="right :10%; margin-top:12.5%;" onclick="hideShowInfos()"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 4 :</b> Cliquez ici pour afficher la description Facebook de votre event. Cliquez à nous pour la cacher</div>">
+				<div class="tempStat2" >4</div>
+			</div>
+			!-->
+			
+			<div class="tempStatBox2" id="num9"  style="margin-top: 49.5%;;"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 8 :</b> La date et les heures ont normalement été remplies automatiquement. En cas d'erreur, merci d'utiliser les date et time picker</div>">
+				<div class="tempStat2" >8</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num10" style="margin-top:59.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 9 :</b> Choisissez un type de prix, donner lui un montant et ajoutez un lien vers votre billeterie.</div>">
+				<div class="tempStat2" >9</div>
+			</div>
+			
+			
+			<div class="tempStatBox3" id="num10" style="margin-top:27.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Ajouter un Spot !</b> </div>">
+				<div class="tempStat3 buttonAddSpotAjax"  id="linkFormAdd" data-toggle="modal" data-target="#modalSpot" onclick="getFormAddSpot();" ><i class="fa fa-plus"></i></div>
+			</div>
+			
+			<div class="tempStatBox3" id="num10" style="margin-top:33.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Ajouter un Artiste !</b> </div>">
+				<div class="tempStat3 buttonAddArtistAjax" id="linkFormAdd" data-toggle="modal" data-target="#modalArtist" onclick="getFormAddArtist();" ><i class="fa fa-plus"></i></div>
+			</div>
+			
+			<div class="tempStatBox3" id="num10" style="margin-top:39.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Ajouter un Genre !</b> </div>">
+				<div class="tempStat3 buttonAddGenreAjax" id="linkFormAdd" data-toggle="modal" data-target="#modalGenre" onclick="getFormAddGenre();" ><i class="fa fa-plus"></i></div>
+			</div>
+	
+
+
+
+
+
+
+
+<form id="Evenement" style="padding-left: 16%;" enctype="application/x-www-form-urlencoded" method="post" action="" class="form-horizontal"  onsubmit="return validDataFormEdit();">
+
+
+
+
+
+
+	<input type="hidden" name="id" id="id" value="<?php if(isset($this->dataPopulate['id'])) echo $this->dataPopulate['id']; ?>" />
+
+
+	<!-- FB !-->
+	
+		
+		
+		<div class="form-group">
+				
+				<div class="col-sm-10">
+				<div class="labelAdd">Lien Facebook</div>
+				<div class='input-group'>
+				  <input type="text" class="form-control " placeholder="https://www.facebook.com/events/0000000000000000/" name="linkFb" id="linkFb" value="<?php if(isset($this->dataPopulate['linkFb'])) echo $this->dataPopulate['linkFb']; ?>" required pattern="https://www.facebook.com/.+" />
+				<span class="form_hint addEvent">Il faut insérer uniquement une adresse de type https://www.facebook.com/.</span>
+				<span class="input-group-addon btn thunder" onclick="sendInfoFb()"   >
+					<span class="glyphicon glyphicon-flash" style="    font-size: 22px;"></span>
+				</span>
+				</div>
+				</div>
+		</div>
+	
+	
+	
+	
+	
+	<!-- Id Concours !-->
+	<input type="hidden" class="form-control" placeholder="Id Post Facebook" name="idPost" id="idPost" value="<?php if(isset($this->dataPopulate['idPost'])) echo $this->dataPopulate['idPost']; ?>" />
+	
+					
+	<!-- IMG FB !-->
+	<input type="hidden" class="form-control width300" placeholder="Facebook Banner" name="img" id="img" value="<?php if(isset($this->dataPopulate['img'])) echo $this->dataPopulate['img']; ?>" />
+
+
+	 <!-- NOM !-->
+	<div class="form-group">
+		<div class="col-sm-10">
+			<div class="labelAdd">Nom</div>
+				<div class='input-group' style="width:100%;">
+				<input type="text"  class="form-control" id="name" name="name" placeholder="Nom de l'évent" id="name" value="<?php if(isset($this->dataPopulate['name'])) echo $this->dataPopulate['name']; ?>" onblur="upperCaseEditEvent(this.value)" required/>
+				</div>
+			</div>
+		</div>
+
+	
+	
+	 
+	  <!-- Infos !-->
+		<div class="form-group hideInfos">
+			<label for="desc" class="col-sm-2 control-label" class="required" ><i class="fa fa-info-circle"></i> Infos</label>
+			<div class="col-sm-10">
+			 <textarea id="desc" class="form-control" rows="4" cols="98" ></textarea>
+			</div>
+		</div>
+
+	
+	<!-- Orga !-->
+	 <div class="form-group">
+		<div class="col-sm-10">
+		<div class="labelAdd">Organisateur</div>
+		  <input id="idsAdmin"  style="width:603px" value="<?php if(isset($this->dataPopulate['admins'])) echo $this->dataPopulate['admins']; ?>">
+		</div>
+	 </div>
+	
+	 
+	 <!-- Spot !-->
+	 <div class="form-group">
+		<div class="col-sm-10">
+		<div class="labelAdd">Spot</div>
+		  <input id="idsSpot" style="width:603px" value="<?php if(isset($this->dataPopulate['spot'])) echo $this->dataPopulate['spot']; ?>">
+		</div>
+	 </div>	
+	 
+	
+	
+	<!-- Artistes !-->
+	
+	<div class="form-group">
+		<div class="col-sm-10">
+		<div class="labelAdd">Artistes</div>
+			<input id="idsArtist" style="width:603px" value="<?php if(isset($this->dataPopulate['artists'])) echo $this->dataPopulate['artists']; ?>" style="width:710px" >
+		</div>
+	</div>
+	
+	
+	<!-- genres !-->
+	
+	<div class="form-group">
+		<div class="col-sm-10">
+		<div class="labelAdd">Genres</div>
+			<input id="idsGenre" style="width:603px" value="<?php if(isset($this->dataPopulate['genres'])) echo $this->dataPopulate['genres']; ?>" style="width:710px">
+		</div>
+	</div>
+	
+	<!-- DATE AND TIME PART -->
+	<div id="dateAndTime" >
+	
+	  <div class="form-inline row">
+	  
+		<div class="form-group col-sm-6  " style="width:28%;">
+	<div class="input-group ">
+	<div class="labelAdd">Date</div>
+            <div class='input-group date' id='datePicker'>
+                <input type='text' class="form-control " style="width: 165px!important;" id="date" name="date" placeholder="2014-04-16" value="<?php if(isset($this->dataPopulate['date'])) echo $this->dataPopulate['date']; ?>"/>
+                <span class="input-group-addon thunder" style="    font-size: 22px;"><i class="fa fa-calendar-o "></i>
+                </span>
+            </div>
+       
+    	</div>
+  	</div>
+		<script type="text/javascript">
+			$(function () {
+				$('#datePicker').datetimepicker({
+					format: 'YYYY-MM-DD'
+				});
+			});
+		</script>
+  
+ 
+		<div class="form-group col-sm-3 padding0 " style=" width:20%;margin-left: 11%;">
+	      	<div class="input-group ">
+	<div class="labelAdd">Heure de début</div>
+			<div class='input-group date' id='timeStart'>
+			
+                    <input type='text' class="form-control width100" id="heureDebut" name="heureDebut" placeholder="00:00" value="<?php if(isset($this->dataPopulate['heureDebut'])) echo $this->dataPopulate['heureDebut']; ?>"/>
+                    <span class="input-group-addon thunder" style="    font-size: 22px;">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+				</div>
+	      	
+    </div>
+  	
+   <script type="text/javascript">
+            $(function () {
+	            $('#timeStart').datetimepicker({
+		            format: 'HH:mm'
+		        });
+		    });
+        </script>	
+		
+		
+		
+  		<div class="form-group col-sm-3 padding0"  style=" width:20%;margin-left: 9.5%;">
+	<div class="input-group ">
+	<div class="labelAdd">Heure de Fin</div>
+		  <div class='input-group date' id='timeEnd'>
+                    <input type='text' class="form-control width100 " id="heureFin" name="heureFin" placeholder="00:00" value="<?php if(isset($this->dataPopulate['heureFin'])) echo $this->dataPopulate['heureFin']; ?>"/>
+                    <span class="input-group-addon thunder" style="    font-size: 22px;">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+		</div>
+    </div>
+	<script type="text/javascript">
+    	$(function () {
+		    $('#timeEnd').datetimepicker({
+		        format: 'HH:mm'
+			});
+	    });
+    </script>
+	</div><br/>
+	</div>
+
+  
+	<?php //if(
+		if(isset($this->dataPopulate['price1'])) $price1 = $this->dataPopulate['price1'];
+		else {$price1 = array();}//): ?>
+		<!-- PRIX 1 !-->
+		<div id="pricenb1" >
+	
+		<div class="form-inline row">
+	  
+	  	<div class="form-group col-sm-6" style=" width: 33%;">
+			<div class="input-group ">
+			
+        <div class="labelAdd">Type</div>
+				<div class="input-group">
+                <select name="idType1" id="idType1" class="form-control "  >
+				<?php if(isset($price1['typeOptions'])){echo $price1['typeOptions'];}
+							else {echo $this->typeOptions;}
+					?>
+			</select>
+            
+       
+			</div>
+		</div>
+		</div>
+	 
+	  
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 4%;">
+		<div class="input-group " style="width:100%;" >
+	      	<div class="labelAdd">Prix</div>
+				<div class="input-group" style="width:100%;">
+					<input type="text" class="form-control " name="price1" id="price1" placeholder="00.00" value="<?php if(isset($price1['price']))echo $price1['price']; ?>"/><div class="input-group-addon"><i class="fa fa-eur"></i></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 5%;" >
+			<div class="input-group " style="width:100%;" >
+			<div class="labelAdd">Billet</div>
+			<div class="input-group " style="width:100%;">
+                 <input type="text" class="form-control  " placeholder="http://..." name="link1" id="link1" value="<?php if(isset($price1['link'])) echo $price1['link']; ?>" />
+			</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class=" deleteButton btn btn-default" id="deletePrice" onclick="deletePrice(1);"  style="margin-top:0px" ><i class="fa fa-trash-o"></i></div>
+		
+		
+		</div><br/>
+		</div>
+		<!-- FIN PRIX 1 -->
+	<?php //endif; ?>
+	
+	
+	<?php //if(
+		if(isset($this->dataPopulate['price2'])) $price2 = $this->dataPopulate['price2'];
+		else {$price2 = array();}//): ?>
+		<!-- PRIX 2 !-->
+		<div id="pricenb2" >
+	
+		<div class="form-inline row">
+	  
+	  	<div class="form-group col-sm-6" style=" width: 33%;">
+			<div class="input-group ">
+			
+        <div class="labelAdd">Type</div>
+				<div class="input-group">
+                <select name="idType2" id="idType2" class="form-control "  >
+				<?php if(isset($price2['typeOptions'])){echo $price2['typeOptions'];}
+							else {echo $this->typeOptions;}
+					?>
+			</select>
+            
+       
+			</div>
+		</div>
+		</div>
+	 
+	  
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 4%;">
+		<div class="input-group " style="width:100%;" >
+	      	<div class="labelAdd">Prix</div>
+				<div class="input-group" style="width:100%;">
+					<input type="text" class="form-control " name="price2" id="price2" placeholder="00.00" value="<?php if(isset($price2['price']))echo $price2['price']; ?>"/><div class="input-group-addon"><i class="fa fa-eur"></i></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 5%;" >
+			<div class="input-group " style="width:100%;" >
+			<div class="labelAdd">Billet</div>
+			<div class="input-group " style="width:100%;">
+                 <input type="text" class="form-control  " placeholder="http://..." name="link2" id="link2" value="<?php if(isset($price2['link'])) echo $price2['link']; ?>" />
+			</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class=" deleteButton btn btn-default" id="deletePrice" onclick="deletePrice(2);"  style="margin-top:0px" ><i class="fa fa-trash-o"></i></div>
+		
+		
+		</div><br/>
+		</div>
+		<!-- FIN PRIX 2 -->
+	<?php //endif; ?>
+
+
+	<?php //if(
+		if(isset($this->dataPopulate['price3'])) $price3 = $this->dataPopulate['price3'];
+		else {$price3 = array();}//): ?>
+		<!-- PRIX 3 !-->
+		<div id="pricenb3" >
+	
+		<div class="form-inline row">
+	  
+	  	<div class="form-group col-sm-6" style=" width: 33%;">
+			<div class="input-group ">
+			
+        <div class="labelAdd">Type</div>
+				<div class="input-group">
+                <select name="idType3" id="idType3" class="form-control "  >
+				<?php if(isset($price3['typeOptions'])){echo $price3['typeOptions'];}
+							else {echo $this->typeOptions;}
+					?>
+			</select>
+            
+       
+			</div>
+		</div>
+		</div>
+	 
+	  
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 4%;">
+		<div class="input-group " style="width:100%;" >
+	      	<div class="labelAdd">Prix</div>
+				<div class="input-group" style="width:100%;">
+					<input type="text" class="form-control " name="price3" id="price3" placeholder="00.00" value="<?php if(isset($price3['price']))echo $price3['price']; ?>"/><div class="input-group-addon"><i class="fa fa-eur"></i></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 5%;" >
+			<div class="input-group " style="width:100%;" >
+			<div class="labelAdd">Billet</div>
+			<div class="input-group " style="width:100%;">
+                 <input type="text" class="form-control  " placeholder="http://..." name="link3" id="link3" value="<?php if(isset($price3['link'])) echo $price3['link']; ?>" />
+			</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class=" deleteButton btn btn-default" id="deletePrice" onclick="deletePrice(3);"  style="margin-top:0px" ><i class="fa fa-trash-o"></i></div>
+		
+		
+		</div><br/>
+		</div>
+		<!-- FIN PRIX 3 -->
+	<?php //endif; ?>
+
+
+	
+	<?php //if(
+		if(isset($this->dataPopulate['price4'])) $price4 = $this->dataPopulate['price4'];
+		else {$price4 = array();}//): ?>
+		<!-- PRIX 4 !-->
+		<div id="pricenb4" >
+	
+		<div class="form-inline row">
+	  
+	  	<div class="form-group col-sm-6" style=" width: 33%;">
+			<div class="input-group ">
+			
+        <div class="labelAdd">Type</div>
+				<div class="input-group">
+                <select name="idType4" id="idType4" class="form-control "  >
+				<?php if(isset($price4['typeOptions'])){echo $price4['typeOptions'];}
+							else {echo $this->typeOptions;}
+					?>
+			</select>
+            
+       
+			</div>
+		</div>
+		</div>
+	 
+	  
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 4%;">
+		<div class="input-group " style="width:100%;" >
+	      	<div class="labelAdd">Prix</div>
+				<div class="input-group" style="width:100%;">
+					<input type="text" class="form-control " name="price4" id="price4" placeholder="00.00" value="<?php if(isset($price4['price']))echo $price4['price']; ?>"/><div class="input-group-addon"><i class="fa fa-eur"></i></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-3 " style=" width:24.5%;margin-left: 5%;" >
+			<div class="input-group " style="width:100%;" >
+			<div class="labelAdd">Billet</div>
+			<div class="input-group " style="width:100%;">
+                 <input type="text" class="form-control  " placeholder="http://..." name="link4" id="link4" value="<?php if(isset($price4['link'])) echo $price4['link']; ?>" />
+			</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class=" deleteButton btn btn-default" id="deletePrice" onclick="deletePrice(4);"  style="margin-top:0px" ><i class="fa fa-trash-o"></i></div>
+		
+		
+		</div><br/>
+		</div>
+		<!-- FIN PRIX 4 -->
+	<?php //endif; ?>
+
+		
+
+		
+			<div style="text-align:right;" >
+		<input type="submit" name="submit" id="submitbutton" value="Modifier " class="btn btn-lg btn-primary" />
+		<br/><br/>
+	</div>
+	
+	</div>
+	
+	
+</form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalArtist" tabindex="-1" role="dialog" aria-labelledby="modalArtistLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalArtistLabel">Création d'un Artiste</h4>
+      </div>
+      <div class="modal-body" id="formAddArtist">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalGenre" tabindex="-1" role="dialog" aria-labelledby="modalGenreLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalGenreLabel">Création d'un Genre</h4>
+      </div>
+      <div class="modal-body" id="formAddGenre">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalSpot" tabindex="-1" role="dialog" aria-labelledby="modalSpotLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalSpotLabel">Création d'un Spot</h4>
+      </div>
+      <div class="modal-body" id="formAddSpot">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+if($('#msgErrAddEvent').text().length === 1 || $('#msgErrAddEvent').text().length === 0) $('#msgErrAddEvent').hide();
+
+function validDataFormEdit(){
+	var msgErr = "Veuillez résoudre les erreurs suivantes avant d'ajouter votre event : </br><ul>";
+	var valide = true;
+	var regExpUrl = new RegExp("^(http|https)://", "i");
+	var regExpDecimal = /^\d+(\.\d{1,2})?$/;
+	//valide orgas
+	if(eval($('#tagsUser').val()).length > 3){
+		msgErr = msgErr + "<li>Saisir au plus 3 orgas</li>";
+		setInvalidFieldBorders($('#idsAdmin'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idsAdmin'));}
+	//valide spots
+	if(eval($('#tagsSpot').val()).length == 0){
+		msgErr = msgErr + "<li>Saisir au moins un spot</li>";
+		setInvalidFieldBorders($('#idsSpot'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idsSpot'));}
+	//valide artistes
+	if(eval($('#tagsArtist').val()).length == 0){
+		msgErr = msgErr + "<li>Saisir au moins un artiste</li>";
+		setInvalidFieldBorders($('#idsArtist'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idsArtist'));}
+	//valide date
+	if($('#date').val() == ""){
+		msgErr = msgErr + "<li>Saisir une date</li>";
+		setInvalidFieldBorders($('#date'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#date'));}
+	//valide type prix + lien billeterie
+	if($('#idType1').val() == 1){
+		msgErr = msgErr + "<li>Saisir au moins un type de prix</li>";
+		setInvalidFieldBorders($('#idType1'));
+		unSetInvalidFieldBorders($('#link1'));
+		valide = false;
+	} else if(!regExpUrl.test($('#link1').val()) && $('#link1').val() != ""){
+		msgErr = msgErr + "<li>Saisir un lien de billeterie valide pour le prix numéro 1</li>";
+		setInvalidFieldBorders($('#link1'));
+		unSetInvalidFieldBorders($('#idType1'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idType1')); unSetInvalidFieldBorders($('#link1'));}
+	//valide lien billeterie 2
+	if($("[name='idType2']").val() > 1 && !regExpUrl.test($('#link2').val()) && $('#link2').val() != ""){
+		msgErr = msgErr + "<li>Saisir un lien de billeterie valide pour le prix numéro 2</li>";
+		setInvalidFieldBorders($('#link2'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#link2'));}
+	//valide lien billeterie 3
+	if($("[name='idType3']").val() > 1 && !regExpUrl.test($('#link3').val()) && $('#link3').val() != ""){
+		msgErr = msgErr + "<li>Saisir un lien de billeterie valide pour le prix numéro 3</li>";
+		setInvalidFieldBorders($('#link3'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#link3'));}
+	//valide lien billeterie 4
+	if($("[name='idType4']").val() > 1 && !regExpUrl.test($('#link4').val()) && $('#link4').val() != ""){
+		msgErr = msgErr + "<li>Saisir un lien de billeterie valide pour le prix numéro 4</li>";
+		setInvalidFieldBorders($('#link4'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#link4'));}
+	//valide prix 1
+	if(!regExpDecimal.test($('#price1').val()) && $('#price1').val()!=""){
+		msgErr = msgErr + "<li>Saisir un prix valide (entier, ou décimal séparé par un \".\") pour le prix 1</li>";
+		setInvalidFieldBorders($('#price1'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#price1'));}
+	//valide prix 2
+	if($("[name='idType2']").val()>1 && !regExpDecimal.test($('#price2').val()) && $('#price2').val()!=""){
+		msgErr = msgErr + "<li>Saisir un prix valide (entier, ou décimal séparé par un \".\") pour le prix 2</li>";
+		setInvalidFieldBorders($('#price2'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#price2'));}
+	//valide prix 3
+	if($("[name='idType3']").val()>1 && !regExpDecimal.test($('#price3').val()) && $('#price3').val()!=""){
+		msgErr = msgErr + "<li>Saisir un prix valide (entier, ou décimal séparé par un \".\") pour le prix 3</li>";
+		setInvalidFieldBorders($('#price3'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#price3'));}
+	//valide prix 4
+	if($("[name='idType4']").val()>1 && !regExpDecimal.test($('#price4').val()) && $('#price4').val()!=""){
+		msgErr = msgErr + "<li>Saisir un prix valide (entier, ou décimal séparé par un \".\") pour le prix 4</li>";
+		setInvalidFieldBorders($('#price4'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#price4'));}
+	
+	msgErr = msgErr + "</ul>";
+	if(!valide){
+		$('#msgErrAddEvent').show();
+		$('#msgErrAddEvent').html(msgErr);
+	}
+	return valide;
+}
+
+function setInvalidFieldBorders(field){
+	field.css({"box-shadow": "0 0 5px #d45252", "border-color": "#b03535"})
+}
+
+function unSetInvalidFieldBorders(field){
+	field.css({"box-shadow": "", "border-color": ""})
+}
+
+
+
+//*********************
+//******* AJAX *******
+//*********************
+
+	
+	function sendInfoFb(){
+		idEvent = document.getElementById("linkFb").value;
+
+		//On lance la fonction ajax
+		$.ajax({
+			type: "GET",
+			url: '/infoEventFB.php?fullFb='+ idEvent,
+			dataType: "json",
+
+			//Succès de la requête
+			success: function(data) {
+				$("#name").val(data.nameFb);
+				var labelInfos = data.spot+"\n\n----------------------------------------\n"+data.artists;
+				$("#desc").val(labelInfos);
+				$("#date").val(data.date);
+				$("#img").val(data.imageCoverFb);
+				if(data.heureDebut != null)
+				{
+					$("#heureDebut").val(data.heureDebut+':'+data.minutesDebut);
+				}
+				
+				if(data.heureFin != null)
+				{
+					$("#heureFin").val(data.heureFin+':'+data.minutesFin);
+				}
+				
+				if(data.ticket != null)
+				{
+					$("#idType").val('4');
+					$("#link").val(data.ticket);
+				}
+
+				$("#idSpot").find("option").each(function () {
+					var getSpotFromFb = data.spot;
+					var getSpotFromForm = $(this).text();
+
+					var getSpotFromFb = getSpotFromFb.toLowerCase();
+					var getSpotFromForm = getSpotFromForm.toLowerCase();
+
+					var arraySpot = getSpotFromFb.split(" ");
+
+					if(getSpotFromForm.match(arraySpot[0]))
+					{
+						if(getSpotFromForm.match(arraySpot[1]))
+						{
+							if(getSpotFromForm.match(arraySpot[2]) && arraySpot[2] != null)
+							{
+								var value = $(this).val();
+								$("#idSpot").val(value);
+							}
+							else if(arraySpot[2] == null)
+							{
+								var value = $(this).val();
+								$("#idSpot").val(value);
+							}
+						}
+						else if(getSpotFromForm.match(arraySpot[2]) && arraySpot[2] != null)
+						{
+							var value = $(this).val();
+							$("#idSpot").val(value);
+						}
+						else if(arraySpot[1] == null && arraySpot[2] == null)
+						{
+							var value = $(this).val();
+							$("#idSpot").val(value);
+						}
+					}
+					else
+					{
+						// Affiche rien 
+					}
+				});
+			}
+		});
+	}
+	
+// AJOUT ARTIST AJAX
+function getFormAddArtist(){
+	$.get('/artist/addFromEvent',
+		{},
+		function(respond){
+			$("#formAddArtist").html(respond); 
+		}
+	);
+}
+
+
+// AJOUT ARTIST AJAX
+function getFormAddGenre(){
+	$.get('/genre/addFromEvent',
+		{},
+		function(respond){
+			$("#formAddGenre").html(respond); 
+		}
+	);
+}
+
+// AJOUT ARTIST AJAX
+function getFormAddSpot(){
+	$.get('/spot/addFromEvent',
+		{},
+		function(respond){
+			$("#formAddSpot").html(respond); 
+		}
+	);
+}
+</script>
+
+
+<script >
+
+function deletePrice(numPrice){
+	$("select#idType" + numPrice + " option").each(function() { 
+		this.selected = (this.text == '--'); 
+	});
+	$("#price" + numPrice).val('');
+	$("#link" + numPrice).val('');
+}
+
+
+//*********************
+//******* ADMINS *******
+//*********************
+
+var adminsSuggestions;
+
+function getAdminsFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/user/getCachedUsers',
+		success: function(data){
+			adminsSuggestions = eval(data);
+			initAdminsField(loadAdminsField());
+		}
+	});
+}
+
+function loadAdminsField(){
+	var admins = ($('#idsAdmin').attr("value")).split(', ');
+	//vider le champ une fois les infos recuperees
+	$('#idsAdmin').val('');
+	var adminsInit = [];
+	var adminToAdd = {};
+	admins.forEach(function(elmt){
+		if(elmt != ""){
+			adminToAdd.name = elmt;
+			adminsInit.push(adminToAdd);
+			adminToAdd = {};
+		}
+	});
+	return adminsInit;
+}
+
+function initAdminsField(tags){
+	$('#idsAdmin')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsUser" id="tagsUser" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+	        tagsItems: tags,
+	        suggestions: adminsSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { name: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.name;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.name == item2.name;
+	                }
+	            }
+	        },
+	    })
+	;
+}
+getAdminsFromCache();
+
+
+//*********************
+//******* SPOTS *******
+//*********************
+
+var spotsSuggestions;
+
+function getSpotsFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/spot/getCachedSpots',
+		success: function(data){
+			spotsSuggestions = eval(data);
+			initSpotField(loadSpotsField());
+		}
+	});
+}
+
+function loadSpotsField(){
+	var spotVal = document.getElementById("idsSpot").getAttribute("value");
+	//vider le champ une fois les genres recuperes
+	$('#idsSpot').val('');
+	var spotToAdd = [];
+	var spot = {};
+	if(typeof(spotVal) != "undefined" && spotVal != ""){
+		spot.name = spotVal;
+		spotToAdd.push(spot);
+		return spotToAdd;
+	}
+	return '';
+}
+
+function initSpotField(tags){
+	$('#idsSpot')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsSpot" id="tagsSpot" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+	        tagsItems: tags,
+	        suggestions: spotsSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { name: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.name;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.name == item2.name;
+	                }
+	            }/*,
+	            tags: {
+		            addTags: function(tags){
+	                	if(checkLength()){
+	                		$.fn.textext.TextExtTags.prototype.addTags.apply(this, arguments);
+	                	}
+	                }
+	            },*/
+	        },
+	    })
+	;
+}
+getSpotsFromCache();
+
+
+
+//*********************
+//******* GENRES *******
+//*********************
+
+var genresSuggestions;
+
+function getGenresFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/genre/getCachedGenres',
+		success: function(data){
+			genresSuggestions = eval(data);
+			initGenresField(loadGenresField());
+		}
+	});
+}
+
+function loadGenresField(){
+	var genres = ($('#idsGenre').attr("value")).split(', ');
+	//vider le champ une fois les genres recuperes
+	$('#idsGenre').val('');
+	var genresInit = [];
+	var genreToAdd = {};
+	genres.forEach(function(elmt){
+		if(elmt != ""){
+			genreToAdd.nameGenre = elmt;
+			genresInit.push(genreToAdd);
+			genreToAdd = {};
+		}
+	});
+	return genresInit;
+}
+
+function initGenresField(tags){
+	$('#idsGenre')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsGenre" id="tagsGenre" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+	        tagsItems: tags,
+	        suggestions: genresSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { nameGenre: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.nameGenre;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.nameGenre == item2.nameGenre;
+	                }
+	            }
+	        }
+	    })
+	;
+}
+getGenresFromCache();
+
+
+//*********************
+//******* ARTISTS *******
+//*********************
+
+var artistsSuggestions;
+
+function getArtistsFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/artist/getCachedArtists',
+		success: function(data){
+			artistsSuggestions = eval(data);
+			initArtistsField(loadArtistsField());
+		}
+	});
+}
+
+function loadArtistsField(){
+	var artists = ($('#idsArtist').attr("value")).split(', ');
+	//vider le champ une fois la valeur recuperee
+	$('#idsArtist').val('');
+	var artistsInit = [];
+	var artistToAdd = {};
+	artists.forEach(function(elmt){
+		if(elmt != ""){
+			artistToAdd.name = elmt;
+			artistsInit.push(artistToAdd);
+			artistToAdd = {};
+		}
+	});
+	return artistsInit;
+}
+
+function initArtistsField(tags){
+	$('#idsArtist')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsArtist" id="tagsArtist" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+	        tagsItems : tags,
+	        suggestions: artistsSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { name: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.name;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.name == item2.name;
+	                }
+	            }
+	        }
+	    })
+	;
+}
+getArtistsFromCache();
+
+//***************************************
+//******* HIDE & SHOW INFOS LABEL *******
+//***************************************
+$( document ).ready(function() {
+	$(".hideInfos").hide();
+});
+
+function hideShowInfos() {
+	$('.hideInfos').toggle('show');
+}
+
+</script>

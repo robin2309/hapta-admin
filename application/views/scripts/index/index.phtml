@@ -1,0 +1,170 @@
+<?php require('displayFunctions.php') ?>
+
+<div id="container">
+<br/>
+	<div class="jumbotron aligncenter">
+  		<?php if($this->isAdmin): ?>
+		
+		<h2 style="text-align:center" >Ajouter un event dans la liste d'attente</h2>
+		<form id="addArtist" enctype="application/x-www-form-urlencoded" method="post" action="/event/addQuick" class="form-horizontal width50 left25" onsubmit="sendInfoFb();" >
+		
+			<div class="form-group">
+				<input type="text" class="form-control floatleft " style="width:60%; margin-left:2%;" id="linkFb" name="linkFb" placeholder="Lien Facebook" required pattern="https://www.facebook.com/.+" />
+				<span class="form_hint addQuickEvent">Il faut insérer uniquement une adresse de type https://www.facebook.com/.</span>
+				<input type="hidden" name="dateEventInput" id="dateEventInput" />
+				<input type="submit" name="submit" id="submitbutton" value="Ajouter" class="btn btn-primary floatleft marginleft10px " />
+			</div>
+		</form>
+		
+		<div class="centerdiv">
+			<?php 
+			if($this->msgAddedEvent) { 
+				echo '<div class="alert alert-success" role="alert">' ;
+				echo "L'event a bien été ajouté !";
+				echo '</div>';
+			} elseif($this->msgErrorAddEvent){
+				echo '<div class="alert alert-warning" role="alert">' ;
+				echo "Veuillez renseigner le lien Facebook de l'event";
+				echo '</div>';
+			} elseif($this->msgExistingEvent){
+				echo '<div class="alert alert-danger" role="alert">' ;
+				echo "Ce lien Facebook existe déjà dans les évènements ajoutés via l'ajout rapide";
+				echo '</div>';
+			}
+			?>
+		</div>
+		
+	<br/>	
+		<h1 class="h1left" >Statistiques</h1>
+	<br/>		
+<div class="tempStats row">
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #4e67a9;"><?php echo $this->countInvalidEvent ?></div>
+				<span>Invalides</span>
+			</div>
+		</div><!--/col-->
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #3b589c;"><?php echo $this->countQuickAddEvents ?></div>
+				<span>A Ajouter</span>
+			</div>
+		</div><!--/col-->
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #4e67a9;"><?php echo $this->countUpcomingEvents ?></div>
+				<span>A Venir</span>
+			</div>
+		</div><!--/col-->
+</div>
+	
+<br/>
+	<div class="tempStats row">
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #4e67a9;"><?php echo $this->countSpots ?></div>
+				<span>Nb Spots</span>
+			</div>
+		</div><!--/col-->
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #3b589c;"><?php echo $this->countArtists ?></div>
+				<span>Nb Artistes</span>
+			</div>
+		</div><!--/col-->
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #4e67a9;"><?php echo $this->countEvents ?></div>
+				<span>Nb Event</span>
+			</div>
+		</div><!--/col-->
+</div>
+
+<p>Artistes en attente de validation: <?php echo $this->countInvalidArtists ?></p>
+<p>Spots en attente de validation: <?php echo $this->countInvalidSpots ?></p>
+<p>Genres en attente de validation: <?php echo $this->countInvalidGenres ?></p>
+		
+		<br/>
+		<?php else: ?>
+
+
+
+<h1 class="h1left" >Statisiques</h1>
+<br/>
+	<div class="tempStats row">
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #4e67a9;"><?php echo $this->countEventFromUser ?></div>
+				<span>Events présent sur Hapta</span>
+			</div>
+		</div><!--/col-->
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #3b589c;"><?php echo $this->sumAttendingFromUser ?></div>
+				<span>Nb Participant Total</span>
+			</div>
+		</div><!--/col-->
+
+		<div class="col-md-4 col-sm-4">
+			<div class="tempStatBox">
+				<div class="tempStat" style="border-color: #4e67a9;"><?php echo $this->averageAttending ?></div>
+				<span>Nb Participant Moyen</span>
+			</div>
+		</div><!--/col-->
+</div>
+<br/><br/>
+<p class="h1left"><b>Les  3 events les plus vus</b></p>
+		<?php if(count($this->mostAttendedEvents) === 0): ?>
+			<p>Vous n'avez pas encore d'events postés !</p>
+		<?php endif; ?>
+		<ul style="text-align: left;padding-right: 7%;">
+		<?php foreach($this->mostAttendedEvents as $event): ?>
+
+<div class="task high">
+	<div class="desc">
+		<div class="title"><?php echo $event->getName(); ?></div>
+		<div><b><?php echo $event->getAttending(); ?></b> Participants pour cet event</div>
+	</div>
+	<div class="time">
+		<div class="date"><?php echo dateToFrench($event->getDate()); ?></div>
+
+	</div>
+</div>
+
+</li>
+<?php endforeach; ?>
+</ul>
+
+
+		<?php endif; ?>
+	</div>
+</div>
+
+
+<script>
+function sendInfoFb(){
+		idEvent = $("#linkFb").val();
+		//On lance la fonction ajax
+		$.ajax({
+			type: "GET",
+			url: '/infoEventFB.php?fullFb='+ idEvent,
+			async: false,
+			dataType: "json",
+
+			//Succès de la requête
+			success: function(data) {
+				console.log(data.date);
+				$("#dateEventInput").val(data.date);
+			}
+		});
+		return true;
+}
+</script>

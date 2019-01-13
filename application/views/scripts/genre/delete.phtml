@@ -1,0 +1,14 @@
+<?php
+$this->title ="Effacer Genre";
+$this->headTitle($this->title);
+?>
+
+<form action ="<?php echo $this->url(array('action'=>'delete')); ?>" method = "post" class="form-inline aligncenter">
+	<div>
+	<h2>Effacer '<?php echo $this->escape($this->genre['nameGenre']); ?>' ? </h2>
+		<input type="hidden" name="idGenre" value="<?php echo $this->genre['idGenre']; ?>" />
+		<input type="submit" name="del" value="Oui" />
+		<input type="submit" name="del" value="Non"/>
+	</div>
+	<br/>
+</form>

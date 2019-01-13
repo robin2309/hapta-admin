@@ -1,0 +1,49 @@
+<?php 
+
+//////// GET IDENTITY
+$auth = Zend_Auth::getInstance();
+if($hasIdentity = $auth->hasIdentity()) {
+$user = $auth->getIdentity();}
+	?>
+	
+<div id="container" class="margin15leftright">
+<form id="ChangeRequestSpot"  class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post" action="/spot/changeRequest">
+
+	<input type="hidden" name="id" value="<?php if(isset($this->dataPopulate['id'])) echo $this->dataPopulate['id']; ?>" id="id" />
+
+	<div class="form-group">
+			<div class="col-sm-12">
+			<div class="labelMiniAdd">Nom</div>
+				<input type="text" class="form-control name" id="name" name="name" placeholder="Nom du Spot" value="<?php if(isset($this->dataPopulate['name'])) echo $this->dataPopulate['name']; ?>" onchange="upperCaseNom(this.value)" readonly/>
+			</div>
+	</div>
+	
+	<div class="form-group">
+			<div class="col-sm-12">
+			<div class="labelMiniAdd">Ville</div>
+				<input type="text" class="form-control city" id="city" name="city" placeholder="Nom de la ville" value="<?php if(isset($this->dataPopulate['city'])) echo $this->dataPopulate['city']; ?>" onchange="upperCaseCity(this.value)" readonly/>
+			</div>
+	</div>
+	
+	<div class="form-group">
+			<div class="col-sm-12">
+			<div class="labelMiniAdd">Adresse</div>
+				<input type="text" class="form-control address" id="address" name="address" placeholder="Adresse du lieu" value="<?php if(isset($this->dataPopulate['address'])) echo $this->dataPopulate['address']; ?>" onchange="upperCaseAdress(this.value)" readonly/>
+			</div>
+	</div>
+	
+	
+	<div class="form-group">
+		  <div class="col-sm-12">
+			<div class="labelMiniAdd">Changement</div>
+			    <input type="text" class="form-control changeRequest" id="changeRequest" name="changeRequest" placeholder="Le club a changé de nom : Rapta Club" onchange="upperCaseChangeRequest(this.value)" >
+		 </div>
+	</div>
+	
+	
+	<div class="alignright">
+			<button type="submit" id="submitbutton" onclick="trackOutboundLink('<?php echo Zend_Registry::get('City_Location'); ?> - <? echo $user->username ; ?> - Change Spot Action');" class="btn btn-primary marginright35px">Envoyer</button>
+		</div>
+	
+</form>
+</div>

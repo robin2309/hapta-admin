@@ -1,0 +1,180 @@
+<div id="container">
+
+<div id="msgErrConcours" class="errorDiv alert alert-danger" role="alert" >
+</div>
+
+<form id="addConcours" enctype="application/x-www-form-urlencoded" method="post" action="/concours/addAdmin" class="form-horizontal aligncenter" onsubmit="return validDataFormAdd();">
+
+	<input type="hidden" name="idConcours" value="<?php if(isset($this->dataPopulate['idConcours'])) echo $this->dataPopulate['idConcours']; ?>" id="idConcours" />
+	
+	<input type="hidden" name="idEvent" value="<?php if(isset($this->dataPopulate['idEvent'])) echo $this->dataPopulate['idEvent']; ?>" id="idEvent" />
+	
+	
+
+		
+		<div class="form-group">
+				<label for="infoEvent" class="col-sm-2 control-label">Event</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="infoEvent" name="infoEvent"  value="<?php if(isset($this->dataPopulate['infoEvent'])) echo $this->dataPopulate['infoEvent']; ?>" readonly>
+				</div>
+		</div>
+		
+		<div class="form-group">
+				<label for="infoEvent" class="col-sm-2 control-label">Le</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="dateEvent" name="dateEvent"  value="<?php if(isset($this->dataPopulate['dateEvent'])) echo $this->dataPopulate['dateEvent']; ?>" readonly>
+				</div>
+		</div>
+		
+		<div class="form-inline">
+		
+		<div class="form-group">
+			<label for="dateDeb">Date Début</label>
+			<div class='input-group date marginleft10px' id='dateDeb'>
+                <input type='text' class="form-control width100 " id="dateDeb" name="dateDeb" placeholder="2014-04-16" required/>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+		</div>
+	
+	<script type="text/javascript">
+        $(function () {
+            $('#dateDeb').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
+	
+	
+		<div class="form-group marginleft30px" >
+				<label for="heureDeb">Heure Début</label>
+				<div class='input-group date marginleft10px' id='heureDeb'>
+					<input type='text' class="form-control width100 " id="heureDeb" name="heureDeb" placeholder="20:30" required/>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
+		</div>
+	
+	<script type="text/javascript">
+        $(function () {
+            $('#heureDeb').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+    </script>
+	
+	</div>
+	
+	<br/>
+	<div class="form-inline paddingleft20px">
+		
+		<div class="form-group">
+			<label for="dateFin">Date Fin</label>
+			<div class='input-group date marginleft10px' id='dateFin'>
+                <input type='text' class="form-control width100 " id="dateFin" name="dateFin" placeholder="2014-04-16" required/>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+		</div>
+	
+	<script type="text/javascript">
+        $(function () {
+            $('#dateFin').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
+	
+	
+	<div class="form-group marginleft48px" >
+				<label for="heureFin">Heure Fin</label>
+				<div class='input-group date marginleft10px' id='heureFin'>
+					<input type='text' class="form-control width100 " id="heureFin" name="heureFin" placeholder="20:30" required/>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+					</span>
+				</div>
+		</div>
+	
+	<script type="text/javascript">
+        $(function () {
+            $('#heureFin').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+    </script>
+	
+	</div>
+	
+	<br/>
+	<div class="form-inline paddingleft10px">
+		
+		<div class="form-group">
+				<label for="nbGagnants" class="col-sm-2 control-label">Gagnants</label>
+				<div class="col-sm-10">
+					<input type="number" min="1" class="form-control width139 marginleft10px" id="nbGagnants" name="nbGagnants"  value="<?php if(isset($this->dataPopulate['nbGagnants'])) echo $this->dataPopulate['nbGagnants']; ?>"  required>
+				</div>
+		</div>
+		
+		<div class="form-group">
+				<label for="nbPlaces" class="col-sm-2 control-label">Places</label>
+				<div class="col-sm-10">
+					<input type="number" min="1" class="form-control width139 marginleft10px" id="nbPlaces" name="nbPlaces"  value="<?php if(isset($this->dataPopulate['nbPlaces'])) echo $this->dataPopulate['nbPlaces']; ?>" required>
+				</div>
+		</div>
+	
+	
+	</div>
+	
+	
+	<br/>
+	 
+	 <div class="alignright" >
+	 <button type="submit" id="submitbutton" class="btn btn-primary marginright35px">Envoyer</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+     </div>
+
+</form>
+</div>
+
+<script>
+if($('#msgErrConcours').text().length === 1 || $('#msgErrConcours').text().length === 0) $('#msgErrConcours').hide();
+
+function validDataFormAdd(){
+	var dateDeb = new Date($('#dateDeb').data('date'));
+	var dateFin = new Date($('#dateFin').data('date'));
+	var dateEvent = new Date($('#dateEvent').val());
+	var msgErr = "<ul>";
+	var valide = true;
+	if(dateDeb.getTime() >= dateFin.getTime()){
+		setInvalidFieldBorders($('#dateDeb'));
+		setInvalidFieldBorders($('#dateFin'));
+		msgErr = msgErr+ "<li>La date de début du concours doit être antérieure à la date de fin</li>";
+		valide = false;
+	} else {
+		unSetInvalidFieldBorders($('#dateDeb'));
+		unSetInvalidFieldBorders($('#dateFin'));
+	}
+	if(dateFin.getTime() > dateEvent.getTime()){
+		setInvalidFieldBorders($('#dateFin'));
+		msgErr = msgErr+ "<li>La date de fin du concours doit être antérieure ou égale à la date de l'event</li>";
+		valide = false;
+	} else {
+		unSetInvalidFieldBorders($('#dateFin'));
+	}
+	if(!valide){
+		msgErr = msgErr + "</ul>";
+		$('#msgErrConcours').show();
+		$('#msgErrConcours').html(msgErr);
+		return false;
+	}
+	return true;
+}
+
+function setInvalidFieldBorders(field){
+	field.css({"box-shadow": "0 0 5px #d45252", "border-color": "#b03535"})
+}
+
+function unSetInvalidFieldBorders(field){
+	field.css({"box-shadow": "", "border-color": ""})
+}
+</script>

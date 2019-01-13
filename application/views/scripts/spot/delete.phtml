@@ -1,0 +1,16 @@
+<?php
+$this->title ="Effacer Club";
+$this->headTitle($this->title);
+?>
+
+	
+
+<form action ="<?php echo $this->url(array('action'=>'delete')); ?>" method = "post" class="form-inline aligncenter">
+	<div>
+	<h2>Effacer '<?php echo $this->escape($this->spot['name']); ?>' ? </h2>
+		<input type="hidden" name="id" value="<?php echo $this->spot['id']; ?>" />
+		<input type="submit" name="del" class="btn btn-default" value="Oui" />
+		<input type="submit" name="del" class="btn btn-primary" value="Non"/>
+	</div>
+	<br/>
+</form>

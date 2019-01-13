@@ -1,0 +1,21 @@
+<div id="container" class="margin15leftright" >
+	<form id="AjoutGenre"  enctype="application/x-www-form-urlencoded" method="post" action="/genre/addAdmin" class="form-horizontal" onsubmit="return verifAddGenreAdmin(this)">
+
+		<input type="hidden" name="idGenre" value="<?php if(isset($this->dataPopulate['idGenre'])) echo $this->dataPopulate['idGenre']; ?>" id="idGenre" />
+		
+		<div class="form-group">
+			
+			<div class="col-sm-12">
+				<div class="labelMiniAdd">Genre</div>
+				<input type="text" class="form-control nameGenre" id="nameGenre" name="nameGenre" placeholder="Psytrance"  value="<?php if(isset($this->dataPopulate['nameGenre'])) echo $this->dataPopulate['nameGenre']; ?>" required pattern="^[a-zA-Z0-9 _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ&-']*$" onchange="upperCaseGenre(this.value)" />
+				<span class="form_hint">Certains charactères spéciaux ne sont pas acceptés.</span>
+			</div>
+		</div>
+			 
+		<div class="alignright">
+		
+			<button class="btn btn-primary " type="submit">Envoyer</button></div>
+		</div>
+
+	</form>
+</div>

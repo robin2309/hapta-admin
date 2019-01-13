@@ -1,0 +1,119 @@
+<h1 class="absolute header-page-title width70">Les Utilisateurs</h1>
+<div id="formAddbis" class="alignright paddingbot10px paddingtop10px">
+	<a  class="btn-primary btn btn-lg" id="linkFormAdd"  data-toggle="modal" data-target="#modalAdd" onclick="getFormAdd();">Ajouter un Utilisateur</a>
+</div>
+
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+  
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+   
+
+
+
+<table  class="table table-striped" >
+<tr>
+	<th>Nom</th>
+	<th>Email</th>
+	<th>Role</th>
+	<th></th>
+</tr>
+<?php foreach($this->users as $user): ?>
+<tr>
+	<td><?php echo $user->getUsername(); ?></td>
+	<td><?php echo $user->getEmail(); ?></td>
+	<td><?php echo $user->getRole(); ?></td>
+	<td class="width80">	
+		<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $user->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+		<a href="" data-toggle="modal" data-target="#modalDelete" onclick="getFormDelete(<?php echo $user->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="Supprimer" ></i></a>
+	</td>
+	</tr>
+<? endforeach; ?>
+
+</table>
+
+ </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="myModalLabel">Création d'un Utilisateur</h4>
+      </div>
+      <div class="modal-body" id="formAdd">
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalEditLabel">Edition d'un Utilisateur</h4>
+      </div>
+      <div class="modal-body" id="formEdit">
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Small modal -->
+<div class="modal fade modalsmall2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modalDelete">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="formDelete">
+    </div>
+  </div>
+</div>
+
+<script>
+
+function getFormAdd(){
+	$.get('/user/add', 
+		{},
+		function(respond){
+			$("#formAdd").html(respond); 
+		}
+	);
+}
+
+function getFormEdit(idEdit){
+	console.log('test :: ' + idEdit);
+	var adressEdit = '/user/editAdmin/id/'+idEdit;
+	$.get(adressEdit, 
+		{},
+		function(respond){
+			$("#formEdit").html(respond); 
+		}
+	);
+}
+
+function getFormDelete(idDelete){
+	var adressDelete = '/user/delete/id/'+idDelete;
+	$.get(adressDelete, 
+		{},
+		function(respond){
+			$("#formDelete").html(respond); 
+		}
+	);
+}
+
+</script>
+
+
+

@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+	<div class="panel-heading" role="tab" id="headingFour">
+		  <h4 class="panel-title">
+			    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+			      	<h3> <i class="fa fa-chevron-right"></i> Passés (<?PHP  echo $this->countPastEvents;?>)</h3>
+			    </a>
+		  </h4>
+	</div>
+	<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+		<div class="panel-body">
+			<div id="pastEvents"> 
+				<table class="table table-striped">
+					<tr>
+						<th>Date</th>
+						<th>Nom <input id="searchPastEvent" class="width100 paddingleft5px" placeholder="Recherche" /></th>
+						<th>Lieu</th>
+						<th>Lien <i class="fa fa-facebook-official"></i></th>
+						<th>Attending <i class="fa fa-facebook-official"></i></th>
+					</tr>
+					<?php if ($this->countPastEvents == 0) { echo '<tr><td colspan="8" style="text-align:center;"> Vous n\'avez pas d\'évènements passé</td></tr>';} ?>
+					<?php foreach ($this->pastEvents as $event) : ?>
+						<div class="itemset">
+						<tr>
+							<td><?php 
+									$datePastEvent = strtotime($this->escape($event->getDate()));
+									$day = date('d', $datePastEvent);
+									$month = date('m', $datePastEvent);			
+									echo $day.'/'.$month;
+								?></td>
+							<td class="namePastEvent"><?php echo $this->escape($event->getName()); ?></td>
+							<td><?php echo $this->escape($event->getSpot()->getName()); ?></td>
+							<td><a target="_blank" data-toggle="tooltip" data-placement="top" title="Open Link"  href="<?php echo $this->escape($event->getLinkFb()); ?>" ><i class="fa fa-external-link"></i></a></td>
+							<td><?php echo $this->escape($event->getAttending()); ?></td>
+						</tr>
+						</div>
+					
+					<?php endforeach ?>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+function filterPastEvents(input){
+	$('#pastEvents .namePastEvent').each(function(){
+		$(".pastEventsInit").hide();
+		if(input == '' || input.length < 4){
+			$(this).parent().hide();
+			$(".pastEventsInit").show(); 
+		} else {
+			if($(this).html().toLowerCase().indexOf(input.toLowerCase()) == -1){
+				$(this).parent().hide();
+			} else {
+				$(this).parent().show();
+			}
+		}
+	});
+}
+
+$('#searchPastEvent').on('change textInput input', function(){
+	if(this.value.length > 3){
+		filterPastEvents(this.value);
+	}
+});
+
+
+</script>

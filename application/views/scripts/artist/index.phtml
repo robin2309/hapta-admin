@@ -1,0 +1,137 @@
+
+<div class="row">
+
+ <div class="col-md-6"><h1>Les Artistes (<?PHP  echo count($this->artists);?>) </h1> </div>
+  <div class="col-md-6 " ><div id="formAddbis" class="alignright paddingbot10px paddingtop10px">
+	<a  class="btn-primary btn btn-lg" id="linkFormAdd"data-toggle="modal" data-target="#myModal" onclick="getFormAdd();">Ajouter un Artiste</a>
+</div></div>
+</div>
+<?php if($this->notInsertable): ?>
+	<div><div class="alert alert-danger">Un artiste du même nom existe déjà dans la base.</div></div>
+<?php endif; ?>
+
+
+<div id="artists">
+
+	<table class="table table-striped">
+		<tr>
+		<th>Pseudo &nbsp;<input id="searchArtist" class="width100 paddingleft5px" placeholder="Recherche" /></th>
+		<th>Label</th>
+		<th>Pays</th>
+		<th>Modification</th>
+		</tr>
+		<tr class="lastArtists"><td colspan="4" ><i>Par défault, vous retrouvez ci-dessous les 10 derniers ajouts d'artistes</i></td></tr>
+		<?php foreach ($this->lastArtists as $artist) : ?>
+		
+			<tr class="lastArtists">
+				<td><?php echo $this->escape($artist->getName()); ?></td>
+				<td><?php echo $this->escape($artist->getLabel()); ?></td>
+				<td><?php echo $this->escape($artist->getCountry()); ?></td>
+				<td><a href="" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalChangeRequest" onclick="getFormDemandeModif(<?php echo $artist->getId(); ?>);">Demander une modification</a></td>
+			
+			</tr>
+		<?php endforeach ?>
+	
+		
+		
+		
+		<?php foreach ($this->artists as $artist) : ?>
+			<tr hidden>
+				<td class="name"><?php echo $this->escape($artist->getName()); ?></td>
+				<td ><?php echo $this->escape($artist->getLabel()); ?></td>
+				<td><?php echo $this->escape($artist->getCountry()); ?></td>
+				<td><a href="" class="btn btn-default btn-xs " data-toggle="modal" data-target="#modalChangeRequest" onclick="getFormDemandeModif(<?php echo $artist->getId(); ?>);">Demander une modification</a></td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="modalChangeRequest" tabindex="-1" role="dialog" aria-labelledby="modalChangeRequestLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalChangeRequestLabel">Demander une modification</h4>
+      </div>
+      <div class="modal-body" id="formChangeRequest">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="myModalLabel">Création d'un Artiste</h4>
+      </div>
+      <div class="modal-body" id="formAdd">
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+function getFormAdd(){
+	$.get('/artist/add',
+		{},
+		function(respond){
+			$("#formAdd").html(respond); 
+		}
+	);
+}
+
+
+function getFormDemandeModif(idModif){
+	var adressChangeRequest = '/artist/changeRequest/id/'+idModif;
+	$.get(adressChangeRequest, 
+		{},
+		function(respond){
+			$("#formChangeRequest").html(respond); 
+		}
+	);
+}
+
+
+function filterArtists(input){
+	
+	$('#artists .name').each(function(){
+		
+		$(".lastArtists").hide(); 
+		
+		if(input == ''){
+			$(this).parent().hide();
+			$(".lastArtists").show(); 
+		} else {
+			if($(this).html().toLowerCase().indexOf(input.toLowerCase()) == -1){
+				$(this).parent().hide();
+				
+			} else {
+				$(this).parent().show();
+			}
+			
+		
+		}
+		
+	});
+	
+
+}
+
+
+$('#searchArtist').on('change textInput input', function(){
+	filterArtists(this.value);
+});
+
+
+
+</script>

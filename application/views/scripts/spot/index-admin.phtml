@@ -1,0 +1,221 @@
+<h1 class="absolute header-page-title">Les Spots</h1>
+<div id="formAddbis" class="alignright paddingbot10px paddingtop10px">
+	<a  class="btn-primary btn btn-lg" id="linkFormAdd" data-toggle="modal" data-target="#myModal" onclick="getFormAdd();">Ajouter un Spot</a>
+</div>
+<?php if($this->notInsertable): ?>
+	<div><div class="alert alert-danger">Un spot du même nom existe déjà dans la base.</div></div>
+<?php endif; ?>
+
+<!-- NON VALIDES -->
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3> <i class="fa fa-chevron-right"></i> Non Valides (<?PHP  echo count($this->spotsInvalid);?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+				<table class="table table-striped" >
+						<tr>
+							<th>Nom</th>
+							<th>Adresse</th>
+							<th>Ville</th>
+							<th></th>
+						</tr>
+						<?php 
+						if ( count($this->spotsInvalid) == 0 )
+			{ echo "<tr><td colspan='4'>Il n'y a pas de résultats</td></tr>";}
+
+							foreach ($this->spotsInvalid as $spot) : 
+						?>
+						<tr>
+						<div class="itemset">
+							<td><?php echo $this->escape($spot->getName()); ?></td>
+							<td><?php echo $this->escape($spot->getAddress()); ?></td>
+							<td><?php echo $this->escape($spot->getCity()); ?></td>
+							<td class="width100">	
+									<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $spot->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+									<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $spot->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="supprimer" ></i></a>
+									<a href="<?php echo $this->url(array('controller'=>'spot','action'=>'validate','valid'=>1,'id'=>$spot->getId()),null, true); ?>"><i class="fa fa-check-circle bigicon"></i></a>
+							</td>
+						</div>
+						</tr>
+						<?php endforeach ?>
+						</table>
+      </div>
+    </div>
+  </div>
+  
+  
+<!-- DEMANDE MODIF -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h3> <i class="fa fa-chevron-right"></i> Demandes de modification(<?PHP  echo count($this->spotsModifReq);?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <table class="table table-striped" >
+			<tr>
+				<th>Nom</th>
+				<th>Ville</th>
+				<th>Adresse</th>
+				<th>Requête Changement</th>
+				<th></th>
+			</tr>
+			<?php 
+			if ( count($this->spotsModifReq) == 0 )
+{ echo "<tr><td colspan='4'>Il n'y a pas de résultats</td></tr>";}
+
+				foreach ($this->spotsModifReq as $spot) : 
+			?>
+			<tr>
+			<div class="itemset">
+				<td><?php echo $this->escape($spot->getName()); ?></td>
+				<td><?php echo $this->escape($spot->getCity()); ?></td>
+				<td><?php echo $this->escape($spot->getAddress()); ?></td>
+				<td><?php echo $this->escape($spot->getChangeRequest()); ?></td>
+				<td class="width100">	
+						<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $spot->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+				</td>
+			</div>
+			</tr>
+			<?php endforeach ?>
+			</table>
+      </div>
+    </div>
+  </div>
+  
+<!-- VALIDES -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+         <h3> <i class="fa fa-chevron-right"></i> Valides (<?PHP  echo count($this->spotsValid);?>)</h3>
+
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+				<table class="table table-striped" >
+				<tr>
+					<th>Nom</th>
+					<th>Adresse</th>
+					<th>Ville</th>
+					<th></th>
+				</tr>
+				<?php 
+				if ( count($this->spotsValid) == 0 )
+			{ echo "<tr><td colspan='4'>Il n'y a pas de résultats</td></tr>";}
+					foreach ($this->spotsValid as $spot) : 
+				?>
+				<tr>
+				<div class="itemset">
+					<td><?php echo $this->escape($spot->getName()); ?></td>
+					<td><?php echo $this->escape($spot->getAddress()); ?></td>
+					<td><?php echo $this->escape($spot->getCity()); ?></td>
+					<td class="width100">	
+							<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $spot->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+							<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $spot->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="supprimer" ></i></a>
+							<a href="<?php echo $this->url(array('controller'=>'spot','action'=>'validate','valid'=>0,'id'=>$spot->getId()),null, true); ?>"><i class="fa fa-minus-square bigicon" title="Brouillon" ></i></a>
+					</td>
+				</div>
+				</tr>
+				<?php endforeach ?>
+				</table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="myModalLabel">Création d'un Spot</h4>
+      </div>
+      <div class="modal-body" id="formAdd">
+       
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalEditLabel">Edition d'un Spot</h4>
+      </div>
+      <div class="modal-body" id="formEdit">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Small modal -->
+<div class="modal fade modalsmall2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="formDelete">
+     
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+
+
+<script type="text/javascript">
+
+function getFormAdd(){
+	$.get('/spot/addAdmin', 
+		{},
+		function(respond){
+			$("#formAdd").html(respond); 
+		}
+	);
+}
+
+function getFormDelete(idDelete){
+	var adressDelete = '/spot/delete/id/'+idDelete;
+	$.get(adressDelete, 
+		{},
+		function(respond){
+			$("#formDelete").html(respond); 
+		}
+	);
+}
+
+function getFormEdit(idEdit){
+	var adressEdit = '/spot/editAdmin/id/'+idEdit;
+	$.get(adressEdit, 
+		{},
+		function(respond){
+			$("#formEdit").html(respond); 
+		}
+	);
+}
+
+
+</script>

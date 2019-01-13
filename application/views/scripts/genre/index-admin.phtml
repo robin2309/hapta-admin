@@ -1,0 +1,197 @@
+<h1 class="absolute header-page-title">Les Genres</h1>
+<div id="formAddbis" class="alignright paddingbot10px paddingtop10px">
+	<a  class="btn-primary btn btn-lg" id="linkFormAdd" data-toggle="modal" data-target="#myModal" onclick="getFormAdd();">Ajouter un Genre</a>
+</div>
+<?php if($this->notInsertable): ?>
+	<div><div class="alert alert-danger">Un genre du même nom existe déjà dans la base.</div></div>
+<?php endif; ?>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3> <i class="fa fa-chevron-right"></i> Non Valides (<?PHP  echo count($this->genresNonValides);?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+				<table class="table table-striped">
+						<tr>
+							<th>Name</th>
+							<th></th>
+						</tr>
+
+						<?php 
+						if ( count($this->genresNonValides) == 0 )
+			{ echo "<tr><td colspan='3'>Il n'y a pas de résultats</td></tr>";}
+						foreach ($this->genresNonValides as $genre) : ?>
+						<tr>
+							<div class="itemset">
+								<td><?php echo $this->escape($genre->getName()); ?></td>
+							
+								<td class="width100">	
+									<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $genre->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+									<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $genre->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="supprimer" ></i></a>
+									<a href="<?php echo $this->url(array('controller'=>'genre','action'=>'validate','valid'=>1,'id'=>$genre->getId()),null, true); ?>"><i class="fa fa-check-circle bigicon"></i></a>
+								</td>
+								
+							</div>
+						</tr>
+						<?php endforeach ?>
+						</table>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h3> <i class="fa fa-chevron-right"></i> Demandes de modification(<?PHP  echo count($this->genresModifReq);?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <table class="table table-striped">
+				<tr>
+					<th>Name</th>
+					<th>Request</th>
+					<th></th>
+				</tr>
+
+				<?php 
+				if ( count($this->genresModifReq) == 0 )
+	{ echo "<tr><td colspan='3'>Il n'y a pas de résultats</td></tr>";}
+				foreach ($this->genresModifReq as $genre) : ?>
+				<tr>
+					<div class="itemset">
+						<td><?php echo $this->escape($genre->getName()); ?></td>
+						<td><?php echo $this->escape($genre->getChangeRequest()); ?></td>
+					
+						<td class="width100">	
+							<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $genre->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+							<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $genre->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="supprimer" ></i></a>
+							<a href="<?php echo $this->url(array('controller'=>'genre','action'=>'validate','valid'=>1,'id'=>$genre->getId()),null, true); ?>"><i class="fa fa-check-circle bigicon"></i></a>
+						</td>
+						
+					</div>
+				</tr>
+			<?php endforeach ?>
+			</table>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+         <h3> <i class="fa fa-chevron-right"></i> Valides (<?PHP  echo count($this->genresValides);?>)</h3>
+
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+			<table class="table table-striped">
+					<tr>
+						<th>Name</th>
+						<th></th>
+					</tr>
+
+					<?php 
+					if ( count($this->genresValides) == 0 )
+			{ echo "<tr><td colspan='3'>Il n'y a pas de résultats</td></tr>";}
+					foreach ($this->genresValides as $genre) : ?>
+					<tr>
+						<div class="itemset">
+							<td><?php echo $this->escape($genre->getName()); ?></td>
+							<td class="width100">	
+							<a href="" data-toggle="modal" data-target="#modalEdit" onclick="getFormEdit(<?php echo $genre->getId(); ?>);"><i class="fa fa-pencil-square-o bigicon"></i></a>
+							<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $genre->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="supprimer" ></i></a>
+							<a href="<?php echo $this->url(array('controller'=>'genre','action'=>'validate','valid'=>0,'id'=>$genre->getId()),null, true); ?>"><i class="fa fa-minus-square bigicon" title="Brouillon" ></i></a>
+							</td>
+						</div>
+					</tr>
+					<?php endforeach ?>
+					</table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="myModalLabel">Création d'un Genre</h4>
+      </div>
+      <div class="modal-body" id="formAdd">
+       
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalEditLabel">Edition d'un Genre</h4>
+      </div>
+      <div class="modal-body" id="formEdit">
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Small modal -->
+<div class="modal fade modalsmall2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="formDelete">
+     
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+function getFormAdd(){
+	$.get('/genre/addAdmin', 
+		{},
+		function(respond){
+			$("#formAdd").html(respond); 
+		}
+	);
+}
+
+function getFormDelete(idDelete){
+	var adressDelete = '/genre/delete/id/'+idDelete;
+	$.get(adressDelete, 
+		{},
+		function(respond){
+			$("#formDelete").html(respond); 
+		}
+	);
+}
+
+function getFormEdit(idEdit){
+	var adressEdit = '/genre/editAdmin/id/'+idEdit;
+	$.get(adressEdit, 
+		{},
+		function(respond){
+			$("#formEdit").html(respond); 
+		}
+	);
+}
+
+</script>

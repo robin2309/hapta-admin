@@ -1,0 +1,73 @@
+<?php 
+
+//////// GET IDENTITY
+$auth = Zend_Auth::getInstance();
+if($hasIdentity = $auth->hasIdentity()) {
+$user = $auth->getIdentity();}
+	?>
+	
+<div id="container" class="margin15leftright" >
+	<div id="msgErrGenre"></div>
+	<form id="AjoutGenre" enctype="application/x-www-form-urlencoded" method="post" class="form-horizontal aligncenter" onsubmit="submitFormAddGenre(); return false;"> <!-- action="/genre/addFromEvent" -->
+
+		<input type="hidden" name="idGenre" value="<?php if(isset($this->dataPopulate['idGenre'])) echo $this->dataPopulate['idGenre']; ?>" id="idGenre" />
+
+		<div class="form-group">
+			
+			<div class="col-sm-12">
+				<div class="labelMiniAdd">Genre</div>
+				<input type="text" class="form-control nameGenre" id="nameGenre" name="nameGenre" placeholder="Techno"  value="<?php if(isset($this->dataPopulate['nameGenre'])) echo $this->dataPopulate['nameGenre']; ?>" required pattern="^[a-zA-Z0-9 _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ&-']*$" onchange="upperCaseGenre(this.value)" />
+				<span class="form_hint">Certains charactères spéciaux ne sont pas acceptés.</span>
+			</div>
+		</div>
+
+		<div class="alignright">
+			<button class="btn btn-primary " type="submit" onclick="trackOutboundLink('<?php echo Zend_Registry::get('City_Location'); ?> - <? echo $user->username ; ?> - Add From Event Genres Action');" >Envoyer</button></div>
+		</div>
+
+	</form>
+</div>
+
+<script type="text/javascript">
+function initGenresInput(){
+	var parentNode = $('#idsGenre').parent();
+	parentNode.html("");
+	parentNode.html('<input id="idsGenre"  style="width:710px">');
+}
+
+function submitFormAddGenre(){
+
+	var genre = document.getElementById('nameGenre').value;
+	var checkValid = document.getElementById('nameGenre').validity.valid;
+
+	if(genre == "" && checkValid == false){
+		$("#nameGenre").addClass('sendInvalid');
+		return false;
+	}
+	if(genre != "" && checkValid == false){
+		$("#nameGenre").addClass('sendInvalid');
+		return false;
+	}
+
+	var nameGenre = $('#nameGenre').val();
+	var genres = eval($('#tagsGenre').val());
+
+	$.ajax({
+		type: 'POST',
+		url: '/genre/addFromEvent',
+		data: { nameGenre: nameGenre},
+		success: function(data){
+			if(data == 'INSERTION->Erreur'){
+				$('#msgErrGenre').html('<div class="alert alert-danger">Un genre du même nom existe déjà dans la base.</div>');
+			} else {
+				var genreToAdd = {};
+				genreToAdd.nameGenre = data;
+				genres.push(genreToAdd);
+				$('#modalGenre').modal('hide');
+				initGenresInput();
+				initGenresField(genres);
+			}
+		}
+	});
+}
+</script>

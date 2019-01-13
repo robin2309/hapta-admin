@@ -1,0 +1,13 @@
+<?php
+$this->title ="Effacer Artiste";
+$this->headTitle($this->title);
+?>
+<form action ="<?php echo $this->url(array('action'=>'delete')); ?>" method = "post" class="form-inline aligncenter">
+	<div>
+	<h2>Effacer '<?php echo $this->escape($this->artist['name']); ?>' ? </h2>
+		<input type="hidden" name="id" value="<?php echo $this->artist['idArtist']; ?>" />
+		<input type="submit" name="del" value="Oui" />
+		<input type="submit" name="del" value="Non"/>
+	</div>
+	<br/>
+</form>

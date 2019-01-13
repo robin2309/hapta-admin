@@ -1,0 +1,435 @@
+<?xml version="1.0"?>
+<projectProfile type="default" version="1.12.3">
+  <projectDirectory>
+    <projectProfileFile filesystemName=".zfproject.xml"/>
+    <applicationDirectory classNamePrefix="Application_">
+      <configsDirectory>
+        <applicationConfigFile type="ini"/>
+      </configsDirectory>
+      <controllersDirectory>
+        <controllerFile controllerName="Index">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="addAdmin"/>
+        </controllerFile>
+        <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="Spot">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="validate"/>
+          <actionMethod actionName="changeRequest"/>
+          <actionMethod actionName="addAdmin"/>
+          <actionMethod actionName="indexAdmin"/>
+          <actionMethod actionName="getCachedSpots"/>
+          <actionMethod actionName="addFromEvent"/>
+          <actionMethod actionName="editAdmin"/>
+        </controllerFile>
+        <controllerFile controllerName="Genre">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="addAdmin"/>
+          <actionMethod actionName="indexAdmin"/>
+          <actionMethod actionName="validate"/>
+          <actionMethod actionName="changeRequest"/>
+          <actionMethod actionName="getCachedGenres"/>
+          <actionMethod actionName="addFromEvent"/>
+          <actionMethod actionName="editAdmin"/>
+        </controllerFile>
+        <controllerFile controllerName="Auth">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="logout"/>
+          <actionMethod actionName="denied"/>
+        </controllerFile>
+        <controllerFile controllerName="Event">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="indexAdmin"/>
+          <actionMethod actionName="editAdmin"/>
+          <actionMethod actionName="deleteAdmin"/>
+          <actionMethod actionName="publish"/>
+          <actionMethod actionName="draft"/>
+          <actionMethod actionName="draftAdmin"/>
+          <actionMethod actionName="publishAdmin"/>
+          <actionMethod actionName="addAdmin"/>
+          <actionMethod actionName="addQuick"/>
+          <actionMethod actionName="past"/>
+          <actionMethod actionName="pastAdmin"/>
+          <actionMethod actionName="promote"/>
+        </controllerFile>
+        <controllerFile controllerName="Artist">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="validate"/>
+          <actionMethod actionName="changeRequest"/>
+          <actionMethod actionName="addAdmin"/>
+          <actionMethod actionName="indexAdmin"/>
+          <actionMethod actionName="getCachedArtists"/>
+          <actionMethod actionName="addFromEvent"/>
+          <actionMethod actionName="editAdmin"/>
+        </controllerFile>
+        <controllerFile controllerName="Concours">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="indexAdmin"/>
+          <actionMethod actionName="deleteAdmin"/>
+          <actionMethod actionName="editAdmin"/>
+          <actionMethod actionName="draft"/>
+          <actionMethod actionName="publish"/>
+          <actionMethod actionName="valide"/>
+          <actionMethod actionName="publishAdmin"/>
+          <actionMethod actionName="draftAdmin"/>
+          <actionMethod actionName="unvalid"/>
+          <actionMethod actionName="addAdmin"/>
+          <actionMethod actionName="validAdmin"/>
+          <actionMethod actionName="unvalidAdmin"/>
+          <actionMethod actionName="tirage"/>
+        </controllerFile>
+        <controllerFile controllerName="User">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="getCachedUsers"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="editAdmin"/>
+        </controllerFile>
+        <controllerFile controllerName="Social">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="loadMorePictureInstagram"/>
+        </controllerFile>
+      </controllersDirectory>
+      <formsDirectory>
+        <formFile formName="Login"/>
+        <formFile formName="Event"/>
+        <formFile formName="Spot"/>
+        <formFile formName="Genre"/>
+        <formFile formName="Artist"/>
+        <formFile formName="Concours"/>
+        <formFile formName="ConcoursEdit"/>
+      </formsDirectory>
+      <layoutsDirectory>
+        <layoutScriptsDirectory>
+          <layoutScriptFile layoutName="layout"/>
+        </layoutScriptsDirectory>
+      </layoutsDirectory>
+      <modelsDirectory>
+        <modelFile modelName="Event"/>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="Event"/>
+          <dbTableFile dbTableName="Spot"/>
+          <dbTableFile dbTableName="Genre"/>
+          <dbTableFile dbTableName="AuthAdapter"/>
+          <dbTableFile dbTableName="Artist"/>
+          <dbTableFile dbTableName="ArtistEvent"/>
+          <dbTableFile dbTableName="Concours"/>
+          <dbTableFile dbTableName="GenreEvent"/>
+          <dbTableFile dbTableName="AdminEvent"/>
+          <dbTableFile dbTableName="User"/>
+          <dbTableFile dbTableName="TypePrice"/>
+          <dbTableFile dbTableName="PriceEvent"/>
+        </dbTableDirectory>
+        <modelFile modelName="Spot"/>
+        <modelFile modelName="Genre"/>
+        <modelFile modelName="Artist"/>
+        <modelFile modelName="ArtistEvent"/>
+        <modelFile modelName="Concours"/>
+        <modelFile modelName="GenreEvent"/>
+        <modelFile modelName="AdminEvent"/>
+        <modelFile modelName="User"/>
+        <modelFile modelName="TypePrice"/>
+        <modelFile modelName="PriceEvent"/>
+      </modelsDirectory>
+      <modulesDirectory enabled="false"/>
+      <servicesDirectory enabled="false"/>
+      <viewsDirectory>
+        <viewScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Error">
+            <viewScriptFile forActionName="error"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="logout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Auth">
+            <viewScriptFile forActionName="denied"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="indexAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="editAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="deleteAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="indexAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="deleteAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="editAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="publish"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="draft"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="draft"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="publish"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="valide"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="publishAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="draftAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="draftAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="publishAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="unvalid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="addAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="addAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="indexAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="validate"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="changeRequest"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="validate"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="changeRequest"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="addAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="addAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="indexAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="validate"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="changeRequest"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="addAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="indexAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="getCachedArtists"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="getCachedGenres"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="getCachedSpots"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="getCachedUsers"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="addFromEvent"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="addFromEvent"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="addFromEvent"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="editAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="addAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Artist">
+            <viewScriptFile forActionName="editAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Genre">
+            <viewScriptFile forActionName="editAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Spot">
+            <viewScriptFile forActionName="editAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="validAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="unvalidAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Social">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Social">
+            <viewScriptFile forActionName="loadMorePictureInstagram"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Concours">
+            <viewScriptFile forActionName="tirage"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="past"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="pastAdmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Event">
+            <viewScriptFile forActionName="promote"/>
+          </viewControllerScriptsDirectory>
+        </viewScriptsDirectory>
+        <viewHelpersDirectory/>
+        <viewFiltersDirectory enabled="false"/>
+      </viewsDirectory>
+      <bootstrapFile filesystemName="Bootstrap.php"/>
+    </applicationDirectory>
+    <dataDirectory enabled="false">
+      <cacheDirectory enabled="false"/>
+      <searchIndexesDirectory enabled="false"/>
+      <localesDirectory enabled="false"/>
+      <logsDirectory enabled="false"/>
+      <sessionsDirectory enabled="false"/>
+      <uploadsDirectory enabled="false"/>
+    </dataDirectory>
+    <docsDirectory>
+      <file filesystemName="README.txt"/>
+    </docsDirectory>
+    <libraryDirectory>
+      <zfStandardLibraryDirectory enabled="false"/>
+    </libraryDirectory>
+    <publicDirectory>
+      <publicStylesheetsDirectory enabled="false"/>
+      <publicScriptsDirectory enabled="false"/>
+      <publicImagesDirectory enabled="false"/>
+      <publicIndexFile filesystemName="index.php"/>
+      <htaccessFile filesystemName=".htaccess"/>
+    </publicDirectory>
+    <projectProvidersDirectory enabled="false"/>
+    <temporaryDirectory enabled="false"/>
+    <testsDirectory>
+      <testPHPUnitConfigFile filesystemName="phpunit.xml"/>
+      <testPHPUnitBootstrapFile filesystemName="bootstrap.php"/>
+      <testApplicationDirectory>
+        <testApplicationControllerDirectory>
+          <testApplicationControllerFile forControllerName="Index"/>
+        </testApplicationControllerDirectory>
+      </testApplicationDirectory>
+      <testLibraryDirectory/>
+    </testsDirectory>
+  </projectDirectory>
+</projectProfile>

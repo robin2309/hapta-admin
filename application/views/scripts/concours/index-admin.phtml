@@ -1,0 +1,259 @@
+<h1 class="absolute header-page-title">Les Concours</h1>
+<div id="formAddbis"  style="height:68px!important;" class="alignright paddingbot10px paddingtop10px">
+</div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3> <i class="fa fa-chevron-right"></i> Non Valides </h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+<table class="table table-striped">
+<tr>
+	<th>Nom</th>
+	<th>Début <i class="fa fa-calendar"></i></th>
+	<th>Début <i class="fa fa-clock-o"></i></th>
+	<th>Fin <i class="fa fa-calendar"></i></th>
+	<th>Fin <i class="fa fa-clock-o"></i></th>
+	<th>Nb <i class="fa fa-ticket"></i></th>
+	<th>Admin</th>
+</tr>
+<?php foreach ($this->invalidConcours as $concours) : ?>
+<tr>
+<div class="itemset">
+	<td><?php echo $this->escape($concours->getName()); ?></td>
+	<td><?php echo $this->escape($concours->getDateDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getDateFin()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureFin()); ?></td>
+	<td><?php echo $this->escape($concours->getNbPlaces()); ?> x <?php echo $this->escape($concours->getNbGagnants()); ?></td>
+	<td>
+	
+	 <?PHP if( $this->escape($concours->getValide()) == 1 ): ?>
+		<a class="tools-left" data-toggle="tooltip" data-placement="top" title="Draft" href="<?php echo $this->url(array('controller'=>'concours','action'=>'unvalidAdmin','id'=>$concours->getIdConcours()),null, true); ?>"><i class="fa fa-check bigicon"></i></a>
+	<? else: ?>
+		<a class="tools-left" data-toggle="tooltip" data-placement="top" title="Send Online" href="<?php echo $this->url(array('controller'=>'concours','action'=>'validAdmin','id'=>$concours->getIdConcours()),null, true); ?>"><i class="fa fa-check bigicon"></i></a>
+	<? endif; ?>
+		<a href="" data-toggle="modal" data-target="#modalEditGame" onclick="getFormEditGame(<?PHP echo $concours->getIdConcours();?>);"  class="colorGame" ><i class="fa fa-pencil-square-o bigicon" data-toggle="tooltip" data-placement="top" title="Editer le jeu"></i></a>
+			
+		<a href="" data-toggle="modal" data-target=".modaldeletegame" onclick="getFormDeleteGame(<?php echo $concours->getIdConcours(); ?>);" class="colorGame"  ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+	</td>
+	
+</div>
+</tr>
+<?php endforeach ?>
+</table>
+
+     </div>
+    </div>
+	</div>
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h3> <i class="fa fa-chevron-right"></i> A venir </h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+	  
+<table class="table table-striped">
+<tr>
+	<th>Nom</th>
+	<th>Début <i class="fa fa-calendar"></i></th>
+	<th>Début <i class="fa fa-clock-o"></i></th>
+	<th>Fin <i class="fa fa-calendar"></i></th>
+	<th>Fin <i class="fa fa-clock-o"></i></th>
+	<th>Nb <i class="fa fa-ticket"></i></th>
+	<th>Admin</th>
+</tr>
+<?php foreach ($this->upcomingConcours as $concours) : ?>
+<tr>
+<div class="itemset">
+	<td><?php echo $this->escape($concours->getName()); ?></td>
+	<td><?php echo $this->escape($concours->getDateDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getDateFin()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureFin()); ?></td>
+	<td><?php echo $this->escape($concours->getNbPlaces()); ?> x <?php echo $this->escape($concours->getNbGagnants()); ?></td>
+	<td>
+	
+		   <?PHP if( $this->escape($concours->getValide()) == 1 ): ?>
+		<a class="tools-left" data-toggle="tooltip" data-placement="top" title="Draft" href="<?php echo $this->url(array('controller'=>'concours','action'=>'unvalidAdmin','id'=>$concours->getIdConcours()),null, true); ?>"><i class="fa fa-file-text-o bigicon" title="Brouillon"></i></a>
+			<? else: ?>
+		<a class="tools-left" data-toggle="tooltip" data-placement="top" title="Send Online" href="<?php echo $this->url(array('controller'=>'concours','action'=>'validAdmin','id'=>$concours->getIdConcours()),null, true); ?>"><i class="fa fa-check bigicon"></i></a>
+			<? endif; ?>
+	
+	
+		<a href="" data-toggle="modal" data-target="#modalEditGame" onclick="getFormEditGame(<?PHP echo $concours->getIdConcours();?>);"  class="colorGame" ><i class="fa fa-pencil-square-o bigicon" data-toggle="tooltip" data-placement="top" title="Editer le jeu"></i></a>
+			
+		<a href="" data-toggle="modal" data-target=".modaldeletegame" onclick="getFormDeleteGame(<?php echo $concours->getIdConcours(); ?>);" class="colorGame"  ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+		
+	</td>
+
+</div>
+</tr>
+<?php endforeach ?>
+</table>
+
+    </div>
+    </div>
+	</div>
+
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <h3> <i class="fa fa-chevron-right"></i> En Cours </h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+	  
+<table class="table table-striped">
+<tr>
+	<th>Nom</th>
+	<th>Début <i class="fa fa-calendar"></i></th>
+	<th>Début <i class="fa fa-clock-o"></i></th>
+	<th>Fin <i class="fa fa-calendar"></i></th>
+	<th>Fin <i class="fa fa-clock-o"></i></th>
+	<th>Nb <i class="fa fa-ticket"></i></th>
+	<th>Admin</th>
+</tr>
+<?php foreach ($this->currentConcours as $concours) : ?>
+<tr>
+<div class="itemset">
+	<td><?php echo $this->escape($concours->getName()); ?></td>
+	<td><?php echo $this->escape($concours->getDateDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getDateFin()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureFin()); ?></td>
+	<td><?php echo $this->escape($concours->getNbPlaces()); ?> x <?php echo $this->escape($concours->getNbGagnants()); ?></td>
+	<td>
+		<a href="" data-toggle="modal" data-target="#modalEditGame" onclick="getFormEditGame(<?PHP echo $concours->getIdConcours();?>);"  class="colorGame" ><i class="fa fa-pencil-square-o bigicon" data-toggle="tooltip" data-placement="top" title="Editer le jeu"></i></a>
+			
+		<a href="" data-toggle="modal" data-target=".modaldeletegame" onclick="getFormDeleteGame(<?php echo $concours->getIdConcours(); ?>);" class="colorGame"  ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+	</td>
+	<!--<td>
+		<a href="" class="tools-left" data-toggle="tooltip" data-placement="top" title="Tirage Jeux Concours" onclick="tirageJeuxConcours()">Tirage</a>
+	</td>-->
+</div>
+</tr>
+<?php endforeach ?>
+</table>
+ </div>
+    </div>
+	</div>
+
+
+
+ <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <h3> <i class="fa fa-chevron-right"></i> Passés </h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+<table class="table table-striped">
+<tr>
+	<th>Nom</th>
+	<th>Début <i class="fa fa-calendar"></i></th>
+	<th>Début <i class="fa fa-clock-o"></i></th>
+	<th>Fin <i class="fa fa-calendar"></i></th>
+	<th>Fin <i class="fa fa-clock-o"></i></th>
+	<th>Nb <i class="fa fa-ticket"></i></th>
+	<th>Admin</th>
+</tr>
+<?php foreach ($this->pastConcours as $concours) : ?>
+<tr>
+<div class="itemset">
+	<td><?php echo $this->escape($concours->getName()); ?></td>
+	<td><?php echo $this->escape($concours->getDateDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getDateFin()); ?></td>
+	<td><?php echo $this->escape($concours->getHeureFin()); ?></td>
+	<td><?php echo $this->escape($concours->getNbPlaces()); ?> x <?php echo $this->escape($concours->getNbGagnants()); ?></td>
+	<td>
+		<a href="" data-toggle="modal" data-target="#modalEditGame" onclick="getFormEditGame(<?PHP echo $concours->getIdConcours();?>);"  class="colorGame" ><i class="fa fa-pencil-square-o bigicon" data-toggle="tooltip" data-placement="top" title="Editer le jeu"></i></a>
+			
+		<a href="" data-toggle="modal" data-target=".modaldeletegame" onclick="getFormDeleteGame(<?php echo $concours->getIdConcours(); ?>);" class="colorGame"  ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+	</td>
+</div>
+</tr>
+<?php endforeach ?>
+</table>
+
+ </div>
+    </div>
+	</div>
+
+
+<div class="modal fade" id="modalEditGame" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalEditLabel">Edition d'un Jeu concours</h4>
+      </div>
+      <div class="modal-body" id="formEditGame">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modaldeletegame" tabindex="-1" role="dialog"  aria-labelledby="mySmallModalLabel2" >
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="formDeleteGame">
+     
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+function getFormEditGame(idGame){
+	$.get('/concours/editAdmin/id/'+idGame,
+		{},
+		function(respond){
+			$("#formEditGame").html(respond); 
+		}
+	);
+}
+
+function getFormDeleteGame(idDeleteGame){
+	var adressDelete = '/concours/deleteAdmin/id/'+idDeleteGame;
+	$.get(adressDelete, 
+		{},
+		function(respond){
+			$("#formDeleteGame").html(respond); 
+		}
+	);
+}
+
+function tirageJeuxConcours(idGame){
+	var adressTirage = '/concours/tirage/id/'+idGame;
+	$.post(adressTirage, 
+		{},
+		function(respond){
+			console.log("mail envoyé");
+		}
+	);
+}
+
+</script>

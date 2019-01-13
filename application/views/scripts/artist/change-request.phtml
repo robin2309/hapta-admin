@@ -1,0 +1,49 @@
+<?php 
+
+//////// GET IDENTITY
+$auth = Zend_Auth::getInstance();
+if($hasIdentity = $auth->hasIdentity()) {
+$user = $auth->getIdentity();}
+	?>
+	
+	
+<div id="container" class="margin15leftright">
+<form id="ChangeRequestArtist" enctype="application/x-www-form-urlencoded" method="post" action="/artist/changeRequest" class="form-horizontal">
+
+	<input class="form-control" type="hidden" name="idArtist" value="<?php if(isset($this->dataPopulate['idArtist'])) echo $this->dataPopulate['idArtist']; ?>" id="idArtist" />
+	
+	<div class="form-group">
+		 <div class="col-sm-12">
+		  <div class="labelMiniAdd">Pseudo</div>
+			    <input type="text" class="form-control name" id="name" name="name" placeholder="Pseudo de l'artiste" onchange="verifNameAddArtisteAdmin(this.value)" value="<?php if(isset($this->dataPopulate['name'])) echo $this->dataPopulate['name']; ?>" readonly>
+		 </div>
+	</div>
+	
+	<div class="form-group">
+		  <div class="col-sm-12">
+		  <div class="labelMiniAdd">Label</div>
+			    <input type="text" class="form-control name" id="label" name="label" placeholder="Label de l'artiste" onchange="verifLabelAddArtisteAdmin(this.value)" value="<?php if(isset($this->dataPopulate['label'])) echo $this->dataPopulate['label']; ?>" readonly>
+		 </div>
+	</div>
+	
+	<div class="form-group">
+		  <div class="col-sm-12">
+		  <div class="labelMiniAdd">Pays</div>
+			    <input type="text" class="form-control country" id="country" name="country" placeholder="Pays de l'artiste" onchange="verifCountryAddArtisteAdmin(this.value)" value="<?php if(isset($this->dataPopulate['country'])) echo $this->dataPopulate['country']; ?>" readonly>
+		 </div>
+	</div>
+	
+	<div class="form-group">
+		  <div class="col-sm-12">
+		  <div class="labelMiniAdd">Changement</div>
+			    <input type="text" class="form-control changeRequest" id="changeRequest" name="changeRequest" placeholder="ex : Label - Nom du label" onchange="upperCaseChangeRequest(this.value)" >
+		 </div>
+	</div>
+	
+	<div class="alignright">
+	      
+			<button type="submit" id="submitbutton" onclick="trackOutboundLink('<?php echo Zend_Registry::get('City_Location'); ?> - <? echo $user->username ; ?> - Change Spot Action');" class="btn btn-primary marginright35px">Envoyer</button>
+		</div>
+	
+</form>
+</div>

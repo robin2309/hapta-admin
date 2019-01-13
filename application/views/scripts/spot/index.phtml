@@ -1,0 +1,138 @@
+﻿<?php 
+
+//////// GET IDENTITY
+$auth = Zend_Auth::getInstance();
+if($hasIdentity = $auth->hasIdentity()) {
+$user = $auth->getIdentity();}
+	?>
+
+<div class="row">
+
+ <div class="col-md-6"><h1>Les Spots (<?PHP  echo count($this->spots);?>) </h1> </div>
+  <div class="col-md-6 " ><div id="formAddbis" class="alignright paddingbot10px paddingtop10px">
+	<a  class="btn-primary btn btn-lg" onclick="trackOutboundLink('<?php echo Zend_Registry::get('City_Location'); ?> - <? echo $user->username ; ?> - Add Spot Button');" id="linkFormAdd" data-toggle="modal" data-target="#myModal" onclick="getFormAdd();">Ajouter un Spot</a>
+</div></div>
+</div>
+<?php if($this->notInsertable): ?>
+	<div><div class="alert alert-danger">Un spot du même nom existe déjà dans la base.</div></div>
+<?php endif; ?>
+
+
+<div id="spots">
+	<table class="table table-striped">
+	
+	<tr>
+		<th>Nom &nbsp;<input id="searchSpot" class="width100 paddingleft5px" placeholder="Recherche" /></th>
+		<th>Ville</th>
+		<th>Adresse</th>
+		<th>Modification</th>
+	</tr>
+	
+	<tr class="lastspots"><td colspan="4" ><i>Par défault, vous retrouvez ci-dessous les 10 derniers ajouts de Spot</i></td></tr>
+		
+	<?php foreach ($this->lastSpots as $spot) : ?>
+			<tr class="lastspots">
+				<td class="name"><?php echo $this->escape($spot->getName()); ?></td>
+				<td><?php echo $this->escape($spot->getCity()); ?></td>
+				<td><?php echo $this->escape($spot->getAddress()); ?></td>
+				<td>
+					<a href="" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalChangeRequest" onclick="getFormChangeRequest(<?php echo $spot->getId(); ?>);">Demander une modification</i></a>
+				</td>
+			</tr>
+		<?php endforeach ?>
+
+	
+	
+		<?php foreach ($this->spots as $spot) : ?>
+			<tr hidden>
+				<td class="name"><?php echo $this->escape($spot->getName()); ?></td>
+				<td><?php echo $this->escape($spot->getCity()); ?></td>
+				<td><?php echo $this->escape($spot->getAddress()); ?></td>
+				<td>
+					<a href="" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalChangeRequest" onclick="getFormChangeRequest(<?php echo $spot->getId(); ?>);">Demander une modification</i></a>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+
+
+<!-- Modal change request -->
+<div class="modal fade" id="modalChangeRequest" tabindex="-1" role="dialog" aria-labelledby="modalChangeRequestLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalChangeRequestLabel">Demande de modification</h4>
+      </div>
+      <div class="modal-body" id="formChangeRequest">
+       
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Modal add -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="myModalLabel">Création d'un Spot</h4>
+      </div>
+      <div class="modal-body" id="formAdd">
+       
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+function getFormAdd(){
+	$.get('/spot/add', 
+		{},
+		function(respond){
+			$("#formAdd").html(respond); 
+		}
+	);
+}
+
+function getFormChangeRequest(idModif){
+	var adressChange = '/spot/changeRequest/id/'+idModif;
+	$.get(adressChange, 
+		{},
+		function(respond){
+			$("#formChangeRequest").html(respond); 
+		}
+	);
+}
+
+
+function filterSpots(input){
+	$('#spots .name').each(function(){
+		$(".lastspots").hide();
+		if(input == ''){
+			$(this).parent().hide();
+			$(".lastspots").show();
+		} else {
+			if($(this).html().toLowerCase().indexOf(input.toLowerCase()) == -1){
+				$(this).parent().hide();
+			} else {
+				$(this).parent().show();
+			}
+		}
+		
+	});
+	
+}
+
+$('#searchSpot').on('change textInput input', function(){
+	filterSpots(this.value);
+});
+
+</script>

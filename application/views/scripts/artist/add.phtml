@@ -1,0 +1,43 @@
+<?php 
+
+//////// GET IDENTITY
+$auth = Zend_Auth::getInstance();
+if($hasIdentity = $auth->hasIdentity()) {
+$user = $auth->getIdentity();}
+	?>
+	
+<div id="container" class="margin15leftright" >
+	<form id="addArtist" enctype="application/x-www-form-urlencoded" method="post" action="/artist/add" class="form-horizontal" onsubmit="return verifAddArtisteAdmin(this)">
+	
+		<input class="form-control" type="hidden" name="idArtist" value="<?php if(isset($this->dataPopulate['idArtist'])) echo $this->dataPopulate['idArtist']; ?>" id="idArtist" />
+
+		<div class="form-group">
+		  <div class="col-sm-12">
+				<div class="labelMiniAdd">Pseudo </div>
+			    <input type="text" class="form-control name" id="name" name="name" placeholder="John Hapta" required pattern="^[a-zA-Z _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ!@#$%^&*()_+\-=\[\]{};':\\|,.<>\/?]*$" onchange="upperCaseName(this.value)" />
+				<span class="form_hint">Certains charactères spéciaux ne sont pas accepté.</span>
+		  </div>
+		</div>
+		<div class="form-group">
+		 
+		  <div class="col-sm-12">
+			<div class="labelMiniAdd">Label</div>
+			    <input type="text" class="form-control labelclass" id="label" name="label" placeholder="Hapta Records / TopApero Records " pattern="^[a-zA-Z0-9 _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ.'/&-]*$" onchange="upperCaseLabel(this.value)" />
+				<span class="form_hint">Certains charactères spéciaux ne sont pas accepté.</span>
+		  </div>
+		</div>
+		<div class="form-group">
+		 
+		  <div class="col-sm-12">
+		  <div class="labelMiniAdd">Pays </div>
+			    <input type="text" class="form-control country" id="country" name="country" placeholder="France" pattern="^[a-zA-Z _àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ&-]*$" onchange="upperCaseCountry(this.value)" />
+				<span class="form_hint">Certains charactères spéciaux ne sont pas accepté.</span>
+		  </div>
+		</div>
+  
+		<div class="alignright">
+	        <button type="submit" onclick="trackOutboundLink('<?php echo Zend_Registry::get('City_Location'); ?> - <? echo $user->username ; ?> - Add Artist Action');" id="submitbutton" class="btn btn-primary marginright35px">Envoyer</button>
+		</div>
+
+	</form>
+</div>

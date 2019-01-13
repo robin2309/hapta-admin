@@ -1,0 +1,33 @@
+<p>
+	<a href="<?php echo $this->url(array('controller'=>'concours','action'=>'add'),null, true); ?>">Ajout concours</a>
+</p>
+
+<table>
+<tr>
+	<th>Nom Event</th>
+	<th>Date Début</th>
+	<th>Date Fin</th>
+	<th>Nombre de places</th>
+</tr>
+<?php foreach ($this->concours as $concours) : ?>
+<tr>
+<div class="itemset">
+	<td><?php echo $this->escape($concours->getName()); ?></td>
+	<td><?php echo $this->escape($concours->getDateDeb()); ?></td>
+	<td><?php echo $this->escape($concours->getDateFin()); ?></td>
+	<td><?php echo $this->escape($concours->getNbPlaces()); ?></td>
+	<td>
+		<a href="<?php echo $this->url(array('controller'=>'concours','action'=>'edit','id'=>$concours->getIdConcours()),null, true); ?>">Editer</a>
+		<a href="<?php echo $this->url(array('controller'=>'concours','action'=>'delete','id'=>$concours->getIdConcours()),null, true); ?>">Supprimer</a>
+	</td>
+	<td>
+	    <?PHP if( $this->escape($concours->getPublie()) == 1 ): ?>
+		<a class="tools-left" data-toggle="tooltip" data-placement="top" title="Draft" href="<?php echo $this->url(array('controller'=>'concours','action'=>'draft','id'=>$concours->getIdConcours()),null, true); ?>">Brouillon</a>
+	<? else: ?>
+		<a class="tools-left" data-toggle="tooltip" data-placement="top" title="Send Online" href="<?php echo $this->url(array('controller'=>'concours','action'=>'publish','id'=>$concours->getIdConcours()),null, true); ?>">Publier</a>
+	<? endif; ?>
+	</td>
+</div>
+</tr>
+<?php endforeach ?>
+</table>

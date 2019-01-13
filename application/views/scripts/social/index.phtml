@@ -1,0 +1,43 @@
+<div class="contenu" id="content">
+  <script>
+    $(document).ready(function() {
+      $('#moreInsta').click(function() {
+        var tag   = $(this).data('tag'),
+            maxid = $(this).data('maxid');
+        $.ajax({
+          type: 'GET',
+          url: '/social/loadMorePictureInstagram',
+          data: {
+            tag: tag,
+            max_id: maxid
+          },
+          dataType: 'json',
+          success: function(data) {
+            // Output data
+            $.each(data.images, function(i, src) {
+              var test = src.split(",");
+              $('ul#photosInsta').append('<li><img src="'+ test[0] +'" style="width:30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px; margin-top: 5px; margin-left: 5px;"><span style="margin-left: 10px; margin-top:-10px;"><a href="https://instagram.com/'+ test[1] +'/" target="_blank">'+ test[1] +'</a></span><br/><a href="' + test[2] + '" target="_blank"><img src="' + test[3] + '" style="width:200px; margin-top: 10px;"></a></li>');
+            });
+
+            // Store new maxid
+            $('#moreInsta').data('maxid', data.next_id);
+	        }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+	<ul id="photosInsta">
+    <?php foreach ($this->media->data as $data): ?>
+    	<li>
+        	<img src="<?php echo $data->user->profile_picture ?>" style="width:30px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px; margin-top: 5px; margin-left: 5px;"><span style="margin-left: 10px; margin-top:-10px;"><a href="https://instagram.com/<?php echo $data->user->username ?>/" target="_blank"><?php echo $data->user->username ?></a></span><br/>
+        	<a href="<?php echo $data->link ?>" target="_blank"><img src="<?php echo $data->images->standard_resolution->url ?>" style="width:200px; margin-top: 10px;"></a>
+        	<!-- <div style="width:200px;overflow: hidden;">'.$data->caption->text.</div> -->
+        </li>
+    <?php endforeach; ?>
+    </ul>
+    </div>
+
+    <div><button id="moreInsta" data-maxid="<?php echo $this->media->pagination->next_max_id ?>" data-tag="<?php echo $this->tag ?>">LOAD MORE</button>
+</div>

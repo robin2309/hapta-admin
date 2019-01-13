@@ -1,0 +1,9 @@
+<form action ="/user/delete" method = "post" class="form-inline aligncenter">
+	<div>
+	<h2>Effacer '<?php echo $this->escape($this->user['username']); ?>' ? </h2>
+		<input type="hidden" name="id" value="<?php echo $this->user['id']; ?>" />
+		<input type="submit" name="del" value="Oui" />
+		<input type="submit" name="del" value="Non"/>
+	</div>
+	<br/>
+</form>

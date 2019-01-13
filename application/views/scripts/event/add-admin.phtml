@@ -1,0 +1,817 @@
+<h1 style="text-align:left;     padding-left: 18%;
+    padding-bottom: 1%;">Ajouter un nouvel event</h1>
+
+
+<div id="msgErrAddEvent" class="errorDiv alert alert-danger" role="alert" >
+<?php if(isset($this->dataPopulate['errEmptyField'])): ?>
+	Erreur lors de l'ajout de l'event, renseignez tous les champs obligatoires !
+<?php elseif(isset($this->dataPopulate['errInsert'])): ?>
+	Erreur : <?php echo $this->dataPopulate['errInsert']['type'] . " '" . $this->dataPopulate['errInsert']['name']."'" ?> n'existe pas.
+<?php elseif(isset($this->dataPopulate['existingLinkFb'])): ?>
+	Erreur lors de l'ajout de l'event, le lien Facebook existe déjà dans la base !
+<?php endif; ?>
+</div>
+
+<div class="tempStatBox2"  id="num1" style="margin-top:3%;" data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 1</b> Copiez coller votre <b>lien</b> facebook</div>">
+				<div class="tempStat2" >1</div>
+			</div>
+<div class="tempStatBox2"  id="num2" style="right: 10%;margin-top:3%;" data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 2 :</b> Cliquez sur l'éclair pour pré-remplir les différents champs depuis votre event Facebook.</div>">
+				<div class="tempStat2" >2</div>
+			</div>
+			
+			<div class="tempStatBox2"  id="num3" style="margin-top:12.5%;" data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 3 :</b> Merci de supprimer le nom des artistes ou du lieu</div>">
+				<div class="tempStat2" >3</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:20.5%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 4 :</b> Vous pouvez donner accès à un organisateur via ce champ. </div>">
+				<div class="tempStat2" >4</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:27.5%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 5 :</b> Tapez les premières lettres d'un spot pour le trouver dans notre base de donnée. Si il n'y est pas, veuillez l'ajouter via le <b>bouton +</b> </div>">
+				<div class="tempStat2" >5</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:34%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 6 :</b> Tapez les premières lettres d'un artiste pour le trouver dans notre base de donnée. Si il n'y est pas, veuillez l'ajouter via le <b>bouton +</b> </div>">
+				<div class="tempStat2" >6</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num4" style="right: 10%; margin-top:40.5%;"   data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 7 :</b> Tapez les premieres lettres d'un genre pour le trouver dans notre base de donnée. Si il n'y est pas, veuillez l'ajouter via le <b>bouton +</b></div>">
+				<div class="tempStat2" >7</div>
+			</div>
+			
+			
+			
+			
+			<!--<div class="tempStatBox2" id="num4" style="right :10%; margin-top:12.5%;" onclick="hideShowInfos()"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 4 :</b> Cliquez ici pour afficher la description Facebook de votre event. Cliquez à nous pour la cacher</div>">
+				<div class="tempStat2" >4</div>
+			</div>
+			!-->
+			
+			<div class="tempStatBox2" id="num9"  style="margin-top: 49.5%;;"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 8 :</b> La date et les heures ont normalement été remplies automatiquement. En cas d'erreur, merci d'utiliser les date et time picker</div>">
+				<div class="tempStat2" >8</div>
+			</div>
+			
+			<div class="tempStatBox2" id="num10" style="margin-top:59.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Etape 9 :</b> Choisissez un type de prix, donner lui un montant et ajoutez un lien vers votre billeterie.</div>">
+				<div class="tempStat2" >9</div>
+			</div>
+			
+			
+			<div class="tempStatBox3" id="num10" style="margin-top:27.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Ajouter un Spot !</b> </div>">
+				<div class="tempStat3 buttonAddSpotAjax"  id="linkFormAdd" data-toggle="modal" data-target="#modalSpot" onclick="getFormAddSpot();" ><i class="fa fa-plus"></i></div>
+			</div>
+			
+			<div class="tempStatBox3" id="num10" style="margin-top:33.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Ajouter un Artiste !</b> </div>">
+				<div class="tempStat3 buttonAddArtistAjax" id="linkFormAdd" data-toggle="modal" data-target="#modalArtist" onclick="getFormAddArtist();" ><i class="fa fa-plus"></i></div>
+			</div>
+			
+			<div class="tempStatBox3" id="num10" style="margin-top:39.5%"  data-toggle="tooltip" data-html="true" data-placement="right" title="<div class='alert alert-info'><b>Ajouter un Genre !</b> </div>">
+				<div class="tempStat3 buttonAddGenreAjax" id="linkFormAdd" data-toggle="modal" data-target="#modalGenre" onclick="getFormAddGenre();" ><i class="fa fa-plus"></i></div>
+			</div>
+	
+
+	 
+
+
+<form id="Evenement"   style="padding-left: 16%;" enctype="application/x-www-form-urlencoded" method="post" action=""<?php echo $this->url(array('action'=>'add')); ?>"" class="form-horizontal" onsubmit="return validDataFormAdd();">
+
+	<input type="hidden" name="id" id="id" value="<?php if(isset($this->dataPopulate['id'])) echo $this->dataPopulate['id']; ?>" />
+
+	 <!-- FB !-->
+		<div class="form-group">
+				
+				<div class="col-sm-10">
+				<div class="labelAdd">Lien Facebook</div>
+				<div class='input-group'>
+				  <input type="text" class="form-control " placeholder="https://www.facebook.com/events/0000000000000000/" name="linkFb" id="linkFb" value="<?php if(isset($this->dataPopulate['linkFb'])) echo $this->dataPopulate['linkFb']; ?>" required pattern="https://www.facebook.com/.+" onfocusout="sendInfoFb()" />
+				<span class="form_hint addEvent">Il faut insérer uniquement une adresse de type https://www.facebook.com/.</span>
+				<span class="input-group-addon btn thunder" onclick="sendInfoFb()"   >
+					<span class="glyphicon glyphicon-flash" style="    font-size: 22px;"></span>
+				</span>
+				</div>
+				</div>
+		</div>
+		
+		
+			 
+	 <!-- IMG FB !-->
+		<input type="hidden" class="form-control width300" placeholder="Facebook Banner" name="img" id="img" value="<?php if(isset($this->dataPopulate['img'])) echo $this->dataPopulate['img']; ?>" />
+
+		<div class="form-group">
+		<div class="col-sm-10">
+				<div class="labelAdd">Nom de l'event</div>
+				<div class='input-group'  style="width: 100%!important;">
+				
+				 <input type="text" class="form-control"  id="name" name="name" placeholder="Hapta Party 001" id="name" onblur="upperCaseAddEvent(this.value)" value="<?php if(isset($this->dataPopulate['name'])) echo $this->dataPopulate['name']; ?>" required />
+		
+				<!--<span class="input-group-addon btn thunder" onclick="hideShowInfos()"  >
+					<i class="fa fa-eye-slash " style="    font-size: 22px;" ></i>
+				</span>
+				!-->
+				</div>
+				</div>
+		
+	</div>
+	<a class="btn-default btn buttonHide" style="    margin-left: -7%;" onclick="hideShowInfos()"><i class="fa fa-eye-slash"></i></a>
+	 
+	  <!-- Infos !-->
+		<div class="form-group hideInfos">
+			
+			<div class="col-sm-10">
+			<div class="labelAdd">Informations sur l'event</div>
+			 <textarea id="desc" class="form-control " rows="20" cols="98"  ></textarea>
+			</div>
+		</div>
+
+
+	 	 
+	<!-- Orga !-->
+	 <div class="form-group">
+		<div class="col-sm-10">
+		<div class="labelAdd">Organisateur</div>
+		  <input id="idsAdmin"  style="width:603px" value="<?php if(isset($this->dataPopulate['admins'])) echo $this->dataPopulate['admins']; ?>">
+		</div>
+	 </div>
+	
+	 
+	 <!-- Spot !-->
+	 <div class="form-group">
+		<div class="col-sm-10">
+		<div class="labelAdd">Spot</div>
+		  <input id="idsSpot" style="width:603px" value="<?php if(isset($this->dataPopulate['spots'])) echo $this->dataPopulate['spots']; ?>">
+		</div>
+	 </div>	
+	 
+		 
+	 <!-- Artistes !-->
+	<div class="form-group">
+		
+		<div class="col-sm-10">
+		<div class="labelAdd">Artistes</div>
+		  <input id="idsArtist" style="width:603px" value="<?php if(isset($this->dataPopulate['artists'])) echo $this->dataPopulate['artists']; ?>">
+		</div>
+	 </div>
+	 
+	 
+	 	 
+	 <!-- genres !-->
+	 <div class="form-group">
+
+		<div class="col-sm-10">
+		<div class="labelAdd">Genres</div>
+		  <input id="idsGenre"  style="width:603px" value="<?php if(isset($this->dataPopulate['genres'])) echo $this->dataPopulate['genres']; ?>">
+		</div>
+	 </div>
+	 
+	 
+  
+
+
+<div id="dateAndTime" >
+
+  <div class="form-inline row">
+  
+	<div class="form-group col-sm-6  " style="width:28%;">
+	<div class="input-group ">
+	<div class="labelAdd">Date</div>
+            <div class='input-group date' id='datePicker'>
+                <input type='text' class="form-control " style="width: 165px!important;" id="date" name="date" placeholder="2014-04-16" value="<?php if(isset($this->dataPopulate['date'])) echo $this->dataPopulate['date']; ?>"/>
+                <span class="input-group-addon thunder" style="    font-size: 22px;"><i class="fa fa-calendar-o "></i>
+                </span>
+            </div>
+       
+    	</div>
+  	</div>
+	<script type="text/javascript">
+        $(function () {
+            $('#datePicker').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+        });
+    </script>
+  
+  	<div class="form-group col-sm-3 padding0 " style=" width:20%;margin-left: 11%;">
+	      	<div class="input-group ">
+	<div class="labelAdd">Heure de début</div>
+			<div class='input-group date' id='timeStart'>
+			
+                    <input type='text' class="form-control width100" id="start" name="start" placeholder="00:00" value="<?php if(isset($this->dataPopulate['start'])) echo $this->dataPopulate['start']; ?>"/>
+                    <span class="input-group-addon thunder" style="    font-size: 22px;">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+				</div>
+	      	
+    </div>
+  	
+   <script type="text/javascript">
+            $(function () {
+	            $('#timeStart').datetimepicker({
+		            format: 'HH:mm'
+		        });
+		    });
+        </script>
+  	<div class="form-group col-sm-3 padding0"  style=" width:20%;margin-left: 9.5%;">
+	<div class="input-group ">
+	<div class="labelAdd">Heure de Fin</div>
+		  <div class='input-group date' id='timeEnd'>
+                    <input type='text' class="form-control width100 " id="end" name="end" placeholder="00:00" value="<?php if(isset($this->dataPopulate['end'])) echo $this->dataPopulate['end']; ?>"/>
+                    <span class="input-group-addon thunder" style="    font-size: 22px;">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+		</div>
+    </div>
+	<script type="text/javascript">
+    	$(function () {
+		    $('#timeEnd').datetimepicker({
+		        format: 'HH:mm'
+			});
+	    });
+    </script>
+	</div><br/>
+	</div>
+  
+	
+<!-- PRIX 1 !-->
+<div id="prices" >
+
+  <div id="priceLine" class="form-inline row priceLine">
+  
+	  <div class="form-group col-sm-6 " style=" width: 33%;">
+		<div class="input-group">
+			
+				<div class="labelAdd">Type</div>
+				<div class="input-group">
+                <select name="idType[]" id="idType[]" class="form-control"  >
+				<?php echo $this->typeOptions ?>
+			</select>
+			</div>   
+    	</div>
+  	</div>
+
+  	<div class="form-group col-sm-3 padding0" style=" width:20%;margin-left: 6%;">
+		<div class="input-group ">
+			<div class="labelAdd">Prix</div>
+			<div class="input-group ">
+			<input type="text" class="form-control  " name="price[]" id="price[]" placeholder="00.00" value="<?php if(isset($this->dataPopulate['price1'])) echo $this->dataPopulate['price1']; ?>"/><div class="input-group-addon" style="    font-size: 22px;"><i class="fa fa-eur"></i></div>
+	      	</div>
+		</div>
+	</div>
+
+	<div class="form-group col-sm-3 padding0" style=" width:20%;margin-left: 9.5%;">
+		<div class="input-group ">
+			<div class="labelAdd">Billet</div>
+			<div class="input-group ">
+                 <input type="text" class="form-control  " placeholder="http://..." name="link[]" id="link[]" value="<?php if(isset($this->dataPopulate['link1'])) echo $this->dataPopulate['link1']; ?>" />
+    	<div class="input-group-addon" style="    font-size: 22px;">	<i class="fa fa-link"></i></div></div>
+		</div>
+  	</div>
+	
+	</div>
+	</div>
+
+	<div class="row aligncenter ">
+	<div  id="addPrice" class="btn btn-default"><i class="fa fa-plus"></i>  Ajouter une ligne
+	</div>
+		<br/><br/>
+	</div>
+
+	<div style="text-align:center;" >
+		<input type="submit" name="submit" id="submitbutton" value="Créer " class="btn btn-default btn-primary" />
+	</div>
+
+<br/>
+<br/>
+
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalArtist" tabindex="-1" role="dialog" aria-labelledby="modalArtistLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalArtistLabel">Création d'un Artsite</h4>
+      </div>
+      <div class="modal-body" id="formAddArtist">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalGenre" tabindex="-1" role="dialog" aria-labelledby="modalGenreLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalGenreLabel">Création d'un Genre</h4>
+      </div>
+      <div class="modal-body" id="formAddGenre">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalSpot" tabindex="-1" role="dialog" aria-labelledby="modalSpotLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalSpotLabel">Création d'un Spot</h4>
+      </div>
+      <div class="modal-body" id="formAddSpot">
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/js/addPriceLine.js"></script>
+
+<script type="text/javascript">
+
+if($('#msgErrAddEvent').text().trim().length === 0){
+	$('#msgErrAddEvent').hide();
+}
+
+function validDataFormAdd(){
+	var msgErr = "Veuillez résoudre les erreurs suivantes avant d'ajouter votre event : </br><ul>";
+	var valide = true;
+
+	var regExpUrl = new RegExp("^(http|https)://", "i");
+	var regExpDecimal = /^\d+(\.\d{1,2})?$/;
+	//valide orgas
+	
+	if(eval($('#tagsUser').val()).length > 3){
+		msgErr = msgErr + "<li>Saisir au plus 3 orgas</li>";
+		setInvalidFieldBorders($('#idsAdmin'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idsAdmin'));}
+	//valide spots
+	
+	if(eval($('#tagsSpot').val()).length == 0){
+		msgErr = msgErr + "<li>Saisir au moins un spot</li>";
+		setInvalidFieldBorders($('#idsSpot'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idsSpot'));}
+	//valide artistes
+	
+	if(eval($('#tagsArtist').val()).length == 0){
+		msgErr = msgErr + "<li>Saisir au moins un artiste</li>";
+		setInvalidFieldBorders($('#idsArtist'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idsArtist'));}
+	//valide date
+	
+	if($('#date').val() == ""){
+		msgErr = msgErr + "<li>Saisir une date</li>";
+		setInvalidFieldBorders($('#date'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#date'));}
+	//valide type prix + lien billeterie
+	
+	if($('#idType\\[\\]').val() == 1){
+		msgErr = msgErr + "<li>Saisir au moins un type de prix</li>";
+		setInvalidFieldBorders($('#idType\\[\\]'));
+		unSetInvalidFieldBorders($('#link\\[\\]'));
+		valide = false;
+	} else if(!regExpUrl.test($('#link\\[\\]').val()) && $('#link\\[\\]').val() != ""){
+		msgErr = msgErr + "<li>Saisir un lien de billeterie valide pour les prix</li>";
+		setInvalidFieldBorders($('#link\\[\\]'));
+		unSetInvalidFieldBorders($('#idType\\[\\]'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#idType\\[\\]')); unSetInvalidFieldBorders($('#link\\[\\]'));}
+	//valide lien billeterie 2
+	
+	//valide prix 1
+	if(!regExpDecimal.test($('#price\\[\\]').val()) && $('#price\\[\\]').val()!=""){
+		msgErr = msgErr + "<li>Saisir un prix valide (entier, ou décimal séparé par un \".\") pour le prix 1</li>";
+		setInvalidFieldBorders($('#price\\[\\]'));
+		valide = false;
+	} else {unSetInvalidFieldBorders($('#price\\[\\]'));}
+	
+	
+	msgErr = msgErr + "</ul>";
+	if(!valide){
+		$('#msgErrAddEvent').show();
+		$('#msgErrAddEvent').html(msgErr);
+	}
+	return valide;
+}
+
+function setInvalidFieldBorders(field){
+	field.css({"box-shadow": "0 0 5px #d45252", "border-color": "#b03535"})
+}
+
+function unSetInvalidFieldBorders(field){
+	field.css({"box-shadow": "", "border-color": ""})
+}
+	
+	function sendInfoFb(){
+		idEvent = document.getElementById("linkFb").value;
+
+		//On lance la fonction ajax
+		$.ajax({
+			type: "GET",
+			url: '/infoEventFB.php?fullFb='+ idEvent,
+			dataType: "json",
+
+			//Succès de la requête
+			success: function(data) {
+				$("#name").val(data.nameFb);
+				var labelInfos = data.spot+"\n\n----------------------------------------\n"+data.artists;
+				$("#desc").val(labelInfos);
+				$("#date").val(data.date);
+				$("#img").val(data.imageCoverFb);
+				if(data.heureDebut != null)
+				{
+					$("#start").val(data.heureDebut+':'+data.minutesDebut);
+				}
+				
+				if(data.heureFin != null)
+				{
+					$("#end").val(data.heureFin+':'+data.minutesFin);
+				}
+				
+				if(data.ticket != null)
+				{
+					$("#idType").val('4');
+					$("#link").val(data.ticket);
+				}
+
+				$("#idSpot").find("option").each(function () {
+					var getSpotFromFb = data.spot;
+					var getSpotFromForm = $(this).text();
+
+					var getSpotFromFb = getSpotFromFb.toLowerCase();
+					var getSpotFromForm = getSpotFromForm.toLowerCase();
+
+					var arraySpot = getSpotFromFb.split(" ");
+
+					if(getSpotFromForm.match(arraySpot[0]))
+					{
+						if(getSpotFromForm.match(arraySpot[1]))
+						{
+							if(getSpotFromForm.match(arraySpot[2]) && arraySpot[2] != null)
+							{
+								var value = $(this).val();
+								$("#idSpot").val(value);
+							}
+							else if(arraySpot[2] == null)
+							{
+								var value = $(this).val();
+								$("#idSpot").val(value);
+							}
+						}
+						else if(getSpotFromForm.match(arraySpot[2]) && arraySpot[2] != null)
+						{
+							var value = $(this).val();
+							$("#idSpot").val(value);
+						}
+						else if(arraySpot[1] == null && arraySpot[2] == null)
+						{
+							var value = $(this).val();
+							$("#idSpot").val(value);
+						}
+					}
+					else
+					{
+						// Affiche rien 
+					}
+				});
+			}
+		});
+	}
+	
+// AJOUT ARTIST AJAX
+function getFormAddArtist(){
+	$.get('/artist/addFromEvent',
+		{},
+		function(respond){
+			$("#formAddArtist").html(respond); 
+		}
+	);
+}
+
+
+// AJOUT ARTIST AJAX
+function getFormAddGenre(){
+	$.get('/genre/addFromEvent',
+		{},
+		function(respond){
+			$("#formAddGenre").html(respond); 
+		}
+	);
+}
+
+// AJOUT ARTIST AJAX
+function getFormAddSpot(){
+	$.get('/spot/addFromEvent',
+		{},
+		function(respond){
+			$("#formAddSpot").html(respond); 
+		}
+	);
+}
+</script>
+
+
+<script type="text/javascript">
+
+//*********************
+//******* ARTISTS *******
+//*********************
+
+var artistsSuggestions;
+
+function getArtistsFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/artist/getCachedArtists',
+		success: function(data){
+			artistsSuggestions = eval(data);
+			initArtistsField(loadArtistsField());
+		}
+	});
+}
+
+function loadArtistsField(){
+	var artists = ($('#idsArtist').attr("value")).split(', ');
+	//vider le champ une fois la valeur recuperee
+	$('#idsArtist').val('');
+	var artistsInit = [];
+	var artistToAdd = {};
+	artists.forEach(function(elmt){
+		if(elmt != ""){
+			artistToAdd.name = elmt;
+			artistsInit.push(artistToAdd);
+			artistToAdd = {};
+		}
+	});
+	return artistsInit;
+}
+
+
+function initArtistsField(itemsInit){
+	$('#idsArtist')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsArtist" id="tagsArtist" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',// ajax',
+	        tagsItems: itemsInit,
+	        suggestions: artistsSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { name: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.name;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.name == item2.name;
+	                }
+	            }
+	        }
+	    })
+	;
+}
+
+getArtistsFromCache();
+
+
+//*********************
+//******* GENRES *******
+//*********************
+
+var genresSuggestions;
+
+function getGenresFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/genre/getCachedGenres',
+		success: function(data){
+			genresSuggestions = eval(data);
+			initGenresField(loadGenresField());
+		}
+	});
+}
+
+function loadGenresField(){
+	var genres = ($('#idsGenre').attr("value")).split(', ');
+	//vider le champ une fois les genres recuperes
+	$('#idsGenre').val('');
+	var genresInit = [];
+	var genreToAdd = {};
+	genres.forEach(function(elmt){
+		if(elmt != ""){
+			genreToAdd.nameGenre = elmt;
+			genresInit.push(genreToAdd);
+			genreToAdd = {};
+		}
+	});
+	return genresInit;
+}
+
+function initGenresField(itemsInit){
+	$('#idsGenre')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsGenre" id="tagsGenre" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+	        tagsItems: itemsInit,
+	        suggestions: genresSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { nameGenre: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.nameGenre;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.nameGenre == item2.nameGenre;
+	                }
+	            }
+	        }
+	    })
+	;
+}
+
+getGenresFromCache();
+
+
+//*********************
+//******* SPOTS *******
+//*********************
+
+var spotsSuggestions;
+
+function checkLength(){
+	if($("#idsSpot").next().children().length === 0){
+		return true;
+	}
+	return false;
+}
+
+function getSpotsFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/spot/getCachedSpots',
+		success: function(data){
+			spotsSuggestions = eval(data);
+			initSpotField(loadSpotsField());
+		}
+	});
+}
+
+function loadSpotsField(){
+	var spotVal = document.getElementById("idsSpot").getAttribute("value");
+	//vider le champ une fois les genres recuperes
+	$('#idsSpot').val('');
+	var spotToAdd = [];
+	var spot = {};
+	if(typeof(spotVal) != "undefined" && spotVal != ""){
+		spot.name = spotVal;
+		spotToAdd.push(spot);
+		return spotToAdd;
+	}
+	return '';
+}
+
+function initSpotField(itemsInit){
+	$('#idsSpot')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsSpot" id="tagsSpot" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+		    tagsItems: itemsInit,
+		    suggestions: spotsSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { name: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.name;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.name == item2.name;
+	                }
+	            },
+	            tags: {
+		            addTags: function(tags){
+	                	if(checkLength()){
+	                		$.fn.textext.TextExtTags.prototype.addTags.apply(this, arguments);
+	                	}
+	                }
+	            },
+	        },
+	    })
+	;
+}
+getSpotsFromCache();
+
+
+//*********************
+//******* ADMINS *******
+//*********************
+
+var adminsSuggestions;
+
+function getAdminsFromCache(){
+	$.ajax({
+		type: 'GET',
+		url: '/user/getCachedUsers',
+		success: function(data){
+			adminsSuggestions = eval(data);
+			initAdminsFieldForAddEvent(loadAdminsField());
+		}
+	});
+}
+
+function loadAdminsField(){
+	var admins = ($('#idsAdmin').attr("value")).split(', ');
+	//vider le champ une fois les infos recuperees
+	$('#idsAdmin').val('');
+	var adminsInit = [];
+	var adminToAdd = {};
+	admins.forEach(function(elmt){
+		if(elmt != ""){
+			adminToAdd.name = elmt;
+			adminsInit.push(adminToAdd);
+			adminToAdd = {};
+		}
+	});
+	return adminsInit;
+}
+
+function initAdminsFieldForAddEvent(itemsInit){
+	$('#idsAdmin')
+	    .textext({
+	    	html: {
+	        	hidden: ('<input type="hidden" name="tagsUser" id="tagsUser" />')
+	        },
+	        plugins : 'autocomplete suggestions tags',
+	        tagsItems : itemsInit,
+	        suggestions: adminsSuggestions,
+	        ext: {
+	            itemManager: {
+	                stringToItem: function(str)
+	                {
+	                    return { name: str };
+	                },
+	
+	                itemToString: function(item)
+	                {
+	                    return item.name;
+	                },
+	
+	                compareItems: function(item1, item2)
+	                {
+	                    return item1.name == item2.name;
+	                }
+	            }
+	        }
+	    })
+	;
+}
+
+getAdminsFromCache();
+
+//***************************************
+//******* HIDE & SHOW INFOS LABEL *******
+//***************************************
+$( document ).ready(function() {
+	$(".hideInfos").hide();
+});
+
+function hideShowInfos() {
+	$('.hideInfos').toggle('show');
+}
+
+</script>

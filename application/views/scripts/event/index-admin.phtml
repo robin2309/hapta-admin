@@ -1,0 +1,345 @@
+<h1 class="absolute header-page-title">Les Events</h1>
+<div id="formAddbis" class="alignright paddingbot10px paddingtop10px">
+	<a  class="btn-primary btn btn-lg" id="linkFormAdd"  href="<?php echo $this->url(array('controller'=>'event','action'=>'addAdmin'),null, true); ?>">Ajouter un Event</a>
+</div>
+<?php if($this->notValidable):?>
+	<h3>L'event ne peut pas être validé. le spot, les artistes et les genres référencés doivent être valides</h3>
+<?php endif; ?>
+
+<?php if($this->promoted):?>
+	<div class="alert alert-success" role="alert">
+	L'event a été promu sur sa page Facebook !
+	</div>
+<?php endif; ?>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h3> <i class="fa fa-chevron-right"></i> Non Valides (<?PHP  echo $this->countInvalidEvent;?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse <?php if ($this->countInvalidEvent != 0){ echo 'in';}?>" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+       <table class="table table-striped">
+				<tr>
+					<th>Date</th>
+					<th>Nom</th>
+					<th>Lieu</th>
+					<th><i class="fa fa-facebook-official"></i></th>
+					<th>Admin </th>
+				</tr>
+
+
+<?php
+
+if ($this->countInvalidEvent == 0)
+{ echo '<tr><td colspan="8" style="text-align:center;"> Vous n\'avez pas d\'évènements à venir</td></tr>';}
+
+foreach ($this->invalidEvents as $event) : ?>
+
+<tr>
+<div class="itemset">
+	<td><span class="label label-success">
+		<?php 
+			$dateInvalidEvent = strtotime($this->escape($event->getDate()));
+			$day = date('d', $dateInvalidEvent);
+			$month = date('m', $dateInvalidEvent);			
+			echo $day.'/'.$month;
+		?></span>
+	</td>
+	<td><?php echo $this->escape($event->getName()); ?> <a target="_blank" data-toggle="tooltip" data-placement="top"  href="<?php echo $this->escape($event->getLinkFb()); ?>" ><i class="fa fa-external-link"  title="Lien Facebook" ></i></a></td>
+	<td><?php echo $this->escape($event->getSpot()->getName()); ?></td>
+	<td><?php echo $this->escape($event->getAttending()); ?></td>
+	<td class="width80">
+		<a href="<?php echo $this->url(array('controller'=>'event','action'=>'publishAdmin','id'=>$event->getId()),null, true); ?>"  title="Valider" ><i class="fa fa-check bigicon"></i></a>
+		<a href="<?php echo $this->url(array('controller'=>'event','action'=>'editAdmin','id'=>$event->getId()),null, true); ?>" ><i class="fa fa-pencil-square-o bigicon"  title="Editer" ></i></a>
+		<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $event->getId(); ?>);"><i class="fa fa-trash-o bigicon" title="Supprimer" ></i></a>
+		
+		
+	</td>
+	
+
+  </ul>
+</div>
+
+</div>
+</tr>
+<?php endforeach ?>
+</table>
+
+      </div>
+    </div>
+	</div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h3> <i class="fa fa-chevron-right"></i> Ajoutés via l'ajout rapide (<?PHP  echo $this->countQuickAddEvents;?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse <?php if ($this->countQuickAddEvents != 0){ echo 'in';}?>" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+<table class="table table-striped">
+<tr>
+		<th>Date</th>
+		<th>Lien <i class="fa fa-facebook-official"></i></th>
+		<th>Admin </th>
+</tr>
+
+
+<?php
+if ($this->countQuickAddEvents == 0)
+{ echo '<tr><td colspan="8" style="text-align:center;"> Vous n\'avez pas d\'évènements à venir</td></tr>';}
+
+foreach ($this->quickAddEvents as $event) : ?>
+
+<tr>
+<div class="itemset">
+	
+	<td><span class="label label-success">
+		<?php 
+			$dateQuickAddEvent = strtotime($this->escape($event->getDate()));
+			$day = date('d', $dateQuickAddEvent);
+			$month = date('m', $dateQuickAddEvent);			
+			echo $day.'/'.$month;
+		?></span>
+	</td>
+	<td><?php echo $this->escape($event->getLinkFb()); ?> <a target="_blank" data-toggle="tooltip" data-placement="top"  href="<?php echo $this->escape($event->getLinkFb()); ?>" ><i class="fa fa-external-link"  title="Lien Facebook" ></i></a></td>
+	<td class="width80" >
+	<a href="<?php echo $this->url(array('controller'=>'event','action'=>'draftAdmin','id'=>$event->getId()),null, true); ?>" ><i class="fa fa-file-text-o bigicon"  title="Brouillon" ></i></a>
+		<a href="<?php echo $this->url(array('controller'=>'event','action'=>'editAdmin','id'=>$event->getId()),null, true); ?>" ><i class="fa fa-pencil-square-o bigicon"  title="Editer"></i></a>
+		<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $event->getId(); ?>);" ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+	</td>
+		
+
+</tr>
+<?php endforeach ?>
+</table>
+</div></div></div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <h3> <i class="fa fa-chevron-right"></i> A Venir (<?PHP  echo $this->countEvents;?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse <?php if ($this->countEvents == 0){ echo 'in';}?>" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+<table class="table table-striped">
+<tr>
+		<th>Date</th>
+		<th>Nom</th>
+		<th style="width: 180px;" >Lieu</th>
+		<th style="width: 60px;"><i class="fa fa-facebook-official"></i></th>
+		<th style="width: 70px;border-left: 1px solid #dddddd;
+    padding-left: 15px;" >Pub</th>
+		<th style="width: 70px;" >Jeu</th>
+		<th>Admin </th>
+</tr>
+
+
+<?php
+if ($this->countEvents == 0)
+{ echo '<tr><td colspan="8" style="text-align:center;"> Vous n\'avez pas d\'évènements à venir</td></tr>';}
+
+foreach ($this->events as $event) : ?>
+
+<tr>
+<div class="itemset">
+	<td><span class="label label-success"><?php 
+			$dateValidEvent = strtotime($this->escape($event->getDate()));
+			$day = date('d', $dateValidEvent);
+			$month = date('m', $dateValidEvent);			
+			echo $day.'/'.$month;
+		?></span></td>
+	<td><?php echo $this->escape($event->getName()); ?> <a target="_blank" data-toggle="tooltip" data-placement="top" title="Open Link"  href="<?php echo $this->escape($event->getLinkFb()); ?>" ><i class="fa fa-external-link"></i></a></td>
+	<td><?php echo $this->escape($event->getSpot()->getName()); ?></td>
+	<td><?php echo $this->escape($event->getAttending()); ?> <i class="fa fa-male"></i></td>	
+	
+	<td id="promoteBlock" style="border-left: 1px solid #dddddd;
+    padding-left: 15px;">
+		<p style="margin:0px;" id="promoteText">
+			<?php echo $event->getPromote(); ?> <a id="promoteLink" style="font-size: 16px!important;" class="bigicon" href="#" data-idevent="<?php echo $event->getId() ?>" alt="promouvoir" onclick="return false;"><i class="fa fa-paper-plane"></i></a>
+		</p>
+		<div id="loader" hidden>
+			<img id="loadingMore" alt="Loading" src="/img/ajax-loader.gif"/>
+		</div>
+	</td>
+	
+	<td >
+	 <?PHP  if($this->escape($event->getIdConcours()) == ""): ?>
+			<a data-toggle="modal" data-target="#modalAddGame" onclick="getFormAddGame(<?PHP echo $event->getId();?>);"  class="colorGame" ><i class="fa fa-plus-circle bigicon" data-toggle="tooltip" data-placement="top" title="Ajouter un jeu" ></i></a>
+			
+		<? else: ?>
+			
+			
+			<a href="" data-toggle="modal" data-target="#modalEditGame" onclick="getFormEditGame(<?PHP echo $event->getIdConcours();?>);"  class="colorGame" ><i class="fa fa-pencil-square-o bigicon" data-toggle="tooltip" data-placement="top" title="Editer le jeu"></i></a>
+			
+			<a href="" data-toggle="modal" data-target=".modaldeletegame" onclick="getFormDeleteGame(<?php echo $event->getIdConcours(); ?>);" class="colorGame"  ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+			
+			
+		<? endif; ?>
+	</td>
+	
+	<td class="width80" >
+	<a href="<?php echo $this->url(array('controller'=>'event','action'=>'draftAdmin','id'=>$event->getId()),null, true); ?>" ><i class="fa fa-file-text-o bigicon"  title="Brouillon" ></i></a>
+		<a href="<?php echo $this->url(array('controller'=>'event','action'=>'editAdmin','id'=>$event->getId()),null, true); ?>" ><i class="fa fa-pencil-square-o bigicon"  title="Editer"></i></a>
+		<a href="" data-toggle="modal" data-target=".modalsmall2" onclick="getFormDelete(<?php echo $event->getId(); ?>);" ><i class="fa fa-trash-o bigicon" title="Supprimer"></i></a>
+		</td>
+		
+</tr>
+<?php endforeach ?>
+</table>
+</div></div></div>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <h3> <i class="fa fa-chevron-right"></i> Passés (<?PHP  echo $this->countPastEvents;?>)</h3>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+
+<div id="pastEvents"> 
+	<table class="table table-striped">
+		<tr>
+			<th>Date</th>
+			<th>Nom</th>
+			<th>Lieu</th>
+			<th>Participants <i class="fa fa-facebook-official"></i></th>
+			<th></th>
+		</tr>
+	<?php if ($this->countPastEvents == 0) { echo '<tr><td colspan="8" style="text-align:center;"> Vous n\'avez pas d\'évènements passé</td></tr>';}
+	foreach ($this->pastEvents as $event) : ?>
+	<div class="itemset">
+	<tr class="pastEventsInit">
+		<td><span class="label label-success"><?php 
+				$datePastEvent = strtotime($this->escape($event->getDate()));
+				$day = date('d', $datePastEvent);
+				$month = date('m', $datePastEvent);			
+				echo $day.'/'.$month;
+			?></span></td>
+		<td><?php echo $this->escape($event->getName()); ?> <a target="_blank" data-toggle="tooltip" data-placement="top" title="Open Link"  href="<?php echo $this->escape($event->getLinkFb()); ?>" ><i class="fa fa-external-link"></i></a></td>
+		<td><?php echo $this->escape($event->getSpot()->getName()); ?></td>
+		<td><?php echo $this->escape($event->getAttending()); ?></td>
+	</tr>
+	</div>
+	<?php endforeach; ?>
+	</table>
+	<a href="<?php echo $this->url(array('controller'=>'event','action'=>'pastAdmin')); ?>" alt="Tous les events passés"><span style="text-align:center">Voir plus d'events passés ...</span></a>
+</div>
+</div>
+</div>
+  </div>
+
+
+
+<!-- Button trigger modal -->
+<div class="modal fade" id="modalEditGame" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="modalEditLabel">Edition d'un Jeu concours</h4>
+      </div>
+      <div class="modal-body" id="formEditGame">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modalAddGame" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title aligncenter" id="myModalLabel">Création d'un Jeu concours</h4>
+      </div>
+      <div class="modal-body" id="formAddGame">
+       
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+<!-- Small modal -->
+<div class="modal fade modalsmall2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="formDelete">
+     
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modaldeletegame" tabindex="-1" role="dialog"  aria-labelledby="mySmallModalLabel2" >
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="formDeleteGame">
+     
+    </div>
+  </div>
+</div>
+
+<script src="/js/sendPromoteEventRequest.js"></script> 
+
+<script type="text/javascript">
+
+function getFormDelete(idDelete){
+	var adressDelete = '/event/deleteAdmin/id/'+idDelete;
+	$.get(adressDelete, 
+		{},
+		function(respond){
+			$("#formDelete").html(respond); 
+		}
+	);
+}
+
+
+function getFormDeleteGame(idDeleteGame){
+	var adressDelete = '/concours/deleteAdmin/id/'+idDeleteGame;
+	$.get(adressDelete, 
+		{},
+		function(respond){
+			$("#formDeleteGame").html(respond); 
+		}
+	);
+}
+
+function getFormAddGame(idEvent){
+	$.get('/concours/addAdmin/id/'+idEvent,
+		{},
+		function(respond){
+			$("#formAddGame").html(respond); 
+		}
+	);
+}
+
+function getFormEditGame(idGame){
+	$.get('/concours/edit/id/'+idGame,
+		{},
+		function(respond){
+			$("#formEditGame").html(respond); 
+		}
+	);
+}
+
+</script>
+
+
+
